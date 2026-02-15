@@ -2,8 +2,8 @@
 set -u
 
 # ======================================================
-# ROBYN BANKS OS // TERMUX MOBILE STARTUP v1.3
-# Enhanced Path Discovery & Robust Dependency Sync
+# ROBYN BANKS OS // TERMUX MOBILE STARTUP v1.4
+# "The Ghost Finder" - Hyper-Robust Path Sensing
 # ======================================================
 
 # ---------- COLORS ----------
@@ -19,7 +19,7 @@ PY_PORT=3001
 PHP_PORT=3002
 CF_URL_REGEX='https://[-a-zA-Z0-9]*\.trycloudflare\.com'
 
-# Determine absolute project root
+# Force working directory to the script's location
 PROJECT_ROOT="$(cd "$(dirname "$0")" && pwd)"
 cd "$PROJECT_ROOT"
 
@@ -79,137 +79,128 @@ echo ""
 echo -e "${NC}"
 
 # ======================================================
-# STEP 0: ENVIRONMENT DETECTION
+# STEP 0: SENSORY DISCOVERY
 # ======================================================
-msg "STEP 0" "Detecting Grid Infrastructure"
+msg "STEP 0" "Sensing Grid Nodes..."
 
-# Discovery logic for Python Core
+# Find Logic Core (Python)
 if [ -f "$PROJECT_ROOT/bot/requirements.txt" ]; then
     BOT_DIR="$PROJECT_ROOT/bot"
-    msg "CORE" "Found in /bot"
+    msg "CORE" "Detected in /bot"
 elif [ -f "$PROJECT_ROOT/server/requirements.txt" ]; then
     BOT_DIR="$PROJECT_ROOT/server"
-    msg "CORE" "Found in /server"
+    msg "CORE" "Detected in /server"
 elif [ -f "$PROJECT_ROOT/requirements.txt" ]; then
     BOT_DIR="$PROJECT_ROOT"
-    msg "CORE" "Found in /root"
+    msg "CORE" "Detected in root"
 else
-    echo -e "${ERROR} [!] CRITICAL: requirements.txt not found in bot/, server/, or root.${NC}"
+    echo -e "${ERROR} [!] CRITICAL: requirements.txt not found. Check project structure.${NC}"
+    echo -e "${MUTED}     Looking in: $PROJECT_ROOT${NC}"
     exit 1
 fi
 
-# Discovery logic for Frontend
+# Find Neural Interface (JS)
 if [ -f "$PROJECT_ROOT/frontend/package.json" ]; then
     FRONTEND_DIR="$PROJECT_ROOT/frontend"
-    msg "UI" "Found in /frontend"
+    msg "UI" "Detected in /frontend"
 elif [ -f "$PROJECT_ROOT/package.json" ]; then
     FRONTEND_DIR="$PROJECT_ROOT"
-    msg "UI" "Found in /root"
+    msg "UI" "Detected in root"
 else
-    echo -e "${ERROR} [!] CRITICAL: package.json not found in frontend/ or root.${NC}"
+    echo -e "${ERROR} [!] CRITICAL: package.json not found. Node dependencies unreachable.${NC}"
     exit 1
 fi
 
-# Discovery logic for PHP Gateway
+# Find Gateway (PHP)
 if [ -d "$PROJECT_ROOT/gateway" ]; then
     GATEWAY_DIR="$PROJECT_ROOT/gateway"
+    msg "GW" "Detected in /gateway"
 elif [ -d "$PROJECT_ROOT/server" ]; then
     GATEWAY_DIR="$PROJECT_ROOT/server"
+    msg "GW" "Detected in /server"
 else
     GATEWAY_DIR="$PROJECT_ROOT"
+    msg "GW" "Fallback to root"
 fi
 
 # ======================================================
-# STEP 1: PKG CHECK
+# STEP 1: PKG VERIFICATION
 # ======================================================
-msg "STEP 1" "Validating Termux Packages"
+msg "STEP 1" "Validating OS Relays"
 REQUIRED_PKGS=(nodejs php python git curl openssl)
 for pkg in "${REQUIRED_PKGS[@]}"; do
     if ! command -v "$pkg" &> /dev/null; then
-        echo -e "${MUTED}   - Installing missing package: $pkg...${NC}"
+        echo -e "${MUTED}   - Missing: $pkg. Installing...${NC}"
         pkg install -y "$pkg" --quiet
     fi
 done
 
 # ======================================================
-# STEP 2: DEPENDENCIES
+# STEP 2: DEPENDENCY SYNC
 # ======================================================
-msg "STEP 2" "Synchronizing Logic Matrix"
+msg "STEP 2" "Synchronizing Neural Context"
 
-# Python Core Setup
+# Python Core Handshake
 cd "$BOT_DIR" || exit 1
 if [[ ! -d "venv" ]]; then
-    echo -e "${MUTED}   - Generating Neural Context (venv) in $(basename "$BOT_DIR")...${NC}"
-    python -m venv venv || { echo -e "${ERROR}Venv creation failed.${NC}"; exit 1; }
+    echo -e "${MUTED}   - Constructing Neural Context (venv)...${NC}"
+    python -m venv venv || { echo -e "${ERROR} Handshake Failed: Venv construction error.${NC}"; exit 1; }
 fi
 
 VENV_PYTHON="./venv/bin/python"
-echo -e "${MUTED}   - Syncing Python Dependencies...${NC}"
+echo -e "${MUTED}   - Syncing Logic Packages (pip)...${NC}"
 "$VENV_PYTHON" -m pip install --upgrade pip --quiet
 "$VENV_PYTHON" -m pip install -r requirements.txt --quiet || {
-    echo -e "${ERROR} [!] Python dependency sync failed inside $BOT_DIR.${NC}"
+    echo -e "${ERROR} [!] Logic package sync failed in $BOT_DIR.${NC}"
 }
 
-# UI Dependencies Setup
+# UI Node Handshake
 cd "$FRONTEND_DIR" || exit 1
 if [ ! -d "node_modules" ]; then
-    echo -e "${MUTED}   - Synchronizing UI Dependencies in $(basename "$FRONTEND_DIR")...${NC}"
+    echo -e "${MUTED}   - Building Interface Layer (npm)...${NC}"
     npm install --no-audit --no-fund --quiet --prefer-offline --no-package-lock || {
-        echo -e "${ERROR} [!] UI Dependency sync failed inside $FRONTEND_DIR.${NC}"
+        echo -e "${ERROR} [!] Interface build failed in $FRONTEND_DIR.${NC}"
         exit 1
     }
 fi
 
 # ======================================================
-# STEP 3: BUILD UI (Optional, if needed for PHP server)
+# STEP 3: CORE IGNITION
 # ======================================================
-msg "STEP 3" "Compiling Neural Interface"
-if command -v npx &> /dev/null; then
-    npx vite build --emptyOutDir 2>/dev/null || {
-        echo -e "${MUTED}   - Production build skipped (Dev mode preferred).${NC}"
-    }
-fi
-echo -e "${SUCCESS}   - Matrix ready.${NC}"
-
-# ======================================================
-# STEP 4: IGNITION
-# ======================================================
-msg "STEP 4" "Launching Dual Core Services"
+msg "STEP 3" "Launching Dual Core Services"
 mkdir -p "$PROJECT_ROOT/data/logs"
 
-# --- PHP UI Gateway (Port 3002) ---
+# --- PHP Gateway (Port 3002) ---
 php -S 127.0.0.1:${PHP_PORT} -t "$GATEWAY_DIR" > "$PROJECT_ROOT/data/logs/php_gateway.log" 2>&1 &
-msg "GATEWAY" "PHP Active on $PHP_PORT"
+msg "GW" "Gateway active on $PHP_PORT"
 
-# --- Python Logic Core (Port 3001) ---
+# --- Python Logic (Port 3001) ---
 cd "$BOT_DIR" || exit 1
 "$VENV_PYTHON" main.py > "$PROJECT_ROOT/data/logs/python_core.log" 2>&1 &
-msg "CORE" "Python Active on $PY_PORT"
+msg "LOGIC" "Neural core active on $PY_PORT"
 
-# --- Frontend Node (Port 3000) ---
+# --- Node Interface (Port 3000) ---
 cd "$FRONTEND_DIR" || exit 1
 npm run dev -- --port ${UI_PORT} --host > "$PROJECT_ROOT/data/logs/ui_dev.log" 2>&1 &
-msg "UI" "Vite Active on $UI_PORT"
+msg "UI" "Vite interface active on $UI_PORT"
 
 # ======================================================
-# STEP 5: SATELLITE UPLINK
+# STEP 4: SATELLITE UPLINK
 # ======================================================
-msg "STEP 5" "Establishing Satellite Uplinks"
+msg "STEP 4" "Routing Satellite Tunnels"
 
-# Cloudflared Bin - ARCH detection
 cd "$PROJECT_ROOT"
 if [[ ! -x "./cloudflared" ]]; then
-    echo -e "${MUTED}   - Fetching Cloudflare satellite link (ARM64)...${NC}"
+    echo -e "${MUTED}   - Acquiring Cloudflare relay...${NC}"
     ARCH=$(uname -m)
     CF_URL="https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64"
-    if [[ "$ARCH" == "arm" ]]; then
+    if [[ "$ARCH" == "arm"* && "$ARCH" != *"64" ]]; then
         CF_URL="https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm"
     fi
     curl -sL "$CF_URL" -o cloudflared
     chmod +x cloudflared
 fi
 
-# Tunnels
 ./cloudflared tunnel --url "http://127.0.0.1:${UI_PORT}" --no-autoupdate > "$PROJECT_ROOT/data/logs/cf_ui.log" 2>&1 &
 ./cloudflared tunnel --url "http://127.0.0.1:${PY_PORT}" --no-autoupdate > "$PROJECT_ROOT/data/logs/cf_api.log" 2>&1 &
 
@@ -217,7 +208,7 @@ UI_URL=""
 API_URL=""
 
 echo -ne "${MUTED}   - Negotiating Tunnel Handshake"
-for i in {1..20}; do
+for i in {1..15}; do
     sleep 1
     [[ -z "$UI_URL" ]] && UI_URL=$(grep -oE "$CF_URL_REGEX" "$PROJECT_ROOT/data/logs/cf_ui.log" | head -n1 || true)
     [[ -z "$API_URL" ]] && API_URL=$(grep -oE "$CF_URL_REGEX" "$PROJECT_ROOT/data/logs/cf_api.log" | head -n1 || true)
@@ -228,16 +219,16 @@ done
 echo ""
 
 if [[ -n "$UI_URL" && -n "$API_URL" ]]; then
-    echo -e "${SUCCESS}${BOLD}>> GRID ACTIVE // SYSTEM READY${NC}"
+    echo -e "${SUCCESS}${BOLD}>> GRID SYNCHRONIZED // SYSTEM READY${NC}"
     echo -e "${PRIMARY}   INTERFACE → ${BOLD}${UI_URL}${NC}"
     echo -e "${PRIMARY}   LOGIC API → ${BOLD}${API_URL}${NC}"
     
     echo "$UI_URL" > "$PROJECT_ROOT/data/logs/ui_link.txt"
     echo "$API_URL" > "$PROJECT_ROOT/data/logs/api_link.txt"
 else
-    echo -e "${ERROR}Satellite protocol timeout. Using local access.${NC}"
+    echo -e "${ERROR} Satellite Handshake Timeout. Using local loopback.${NC}"
     echo -e "${PRIMARY}   LOCAL UI → http://localhost:3000${NC}"
 fi
 
-echo -e "${MUTED}   - Streaming Realtime Logs...${NC}"
+echo -e "${MUTED}   - Tapping Realtime Streams...${NC}"
 tail -f "$PROJECT_ROOT/data/logs/python_core.log" "$PROJECT_ROOT/data/logs/ui_dev.log"
