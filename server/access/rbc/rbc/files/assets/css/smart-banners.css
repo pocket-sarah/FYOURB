@@ -1,0 +1,60 @@
+.smart-bnr-wpr {
+    width: 100%;
+    background: #f3f4f5;
+    position: relative;
+}
+.smart-bnr-inner {
+    overflow: auto;
+}
+.smart-bnr-icon {
+    width: 40px;
+    height: 40px;
+}
+.smart-bnr-title {
+    font-size: 1rem;
+    line-height: 1rem;
+    margin-bottom: 0px;
+}
+.smart-bnr-subtitle {
+    font-size: .9rem;
+    line-height: 1.4rem;
+}
+.smart-bnr-android {
+    padding: 5px 15px 5px 10px;
+    overflow: auto;
+    display: flex;
+    align-items:  center;
+}
+.smart-bnr-android .smart-bnr-btn {
+    background: #006ac3;
+    border-radius: 4px;
+    padding: 7px 11px;
+    margin-right: 15px;
+    color: #ffffff;
+    font-size: 1rem;
+    line-height: 1rem;
+    text-decoration: none;
+}
+.smart-bnr-android .smart-bnr-btn:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+.smart-bnr-ios {
+    padding: 5px 15px 5px 10px;
+    overflow: auto;
+}
+.smart-bnr-ios .smart-bnr-subtitle{
+    font-size: .9rem; 
+    margin-bottom: 3px;
+}
+.smart-bnr-ios .smart-bnr-text {
+    font-size: .9rem;
+    line-height: .9rem;
+}
+.smart-bnr-ios .smart-bnr-btn {
+    font-size: 1.4rem;
+    line-height: 1.4rem;
+}
+.va-m {
+    vertical-align: middle !important;
+}

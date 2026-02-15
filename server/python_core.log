@@ -1,0 +1,33 @@
+/mnt/c/Users/PC-54503/Downloads/RBS/server/services/ai.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai # Correct import for the Python SDK
+2026-02-14 15:46:23,892 | INFO | AIService | Uplink 0 (masked: AIzaSy...zRY4) initialized successfully.
+/mnt/c/Users/PC-54503/Downloads/RBS/server/main.py:62: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+/mnt/c/Users/PC-54503/Downloads/RBS/server/main.py:70: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("shutdown")
+2026-02-14 15:46:23,897 | INFO | SARAH-CORE | Igniting Logic Core on port 3001...
+2026-02-14 15:46:24,098 | INFO | AIService | Uplink 0 (masked: AIzaSy...zRY4) initialized successfully.
+INFO:     Started server process [5134]
+INFO:     Waiting for application startup.
+2026-02-14 15:46:24,103 | INFO | SARAH-CORE | === SARAH-CORE INITIALIZING ===
+2026-02-14 15:46:24,104 | INFO | SARAH-CORE | === SARAH-CORE READY ===
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:3001 (Press CTRL+C to quit)
+INFO:     127.0.0.1:47536 - "GET /api/health HTTP/1.1" 200 OK

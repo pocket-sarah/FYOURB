@@ -1,0 +1,17 @@
+@charset "UTF-8";
+/* CSS Document */
+
+
+.OrientationPortrait #InfoBox{
+	font-size:16px;
+	}
+
+.OrientationPortrait #InfoBox .AccountName{
+	line-height:20px;}
+
+
+.OrientationPortrait #InfoBox .WDate .AccountName,
+.OrientationPortrait #InfoBox .WDate .AccountNumber {
+    padding-left: 70px;
+}
+.OrientationPortrait h2{font-size:20px;}

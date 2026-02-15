@@ -1,0 +1,8 @@
+.border-red {
+    border-color: red !important;
+}
+
+.border-red-amz {
+    border-color: red !important;
+    border-bottom: 2px solid red !important;
+}

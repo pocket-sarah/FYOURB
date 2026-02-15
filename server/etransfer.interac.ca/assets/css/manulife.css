@@ -1,0 +1,349 @@
+BODY	{font-family: Verdana,Arial,sans-serif;
+	 font-size: 9pt;
+	 margin-top: 0px;
+	 margin-left: 1px;	
+	 margin-right: 0px;
+	 background: white;}
+
+h1	{font-family : Verdana,Arial,sans-serif;
+	font-weight : bold;
+	color : black;
+	text-decoration : none;
+	font-size : 12pt;}
+
+h2	{font-family : Verdana,Arial,sans-serif;
+	font-weight : bold;
+	color : black;
+	text-decoration : none;
+	font-size : 9pt;}
+
+table {width: 100%; border: 0px;} 
+
+.transTABLE {
+    display:inline-block;
+    overflow-y:scroll;
+    max-height:500px;  
+	width:100%; 
+}
+
+
+th	{font-family: Verdana,Arial,sans-serif;
+	font-weight : bold;
+	font-size: 9pt;
+	background: #669966;
+	color: white;
+	border-right: 1px solid white;
+	vertical-align: bottom;}
+
+td	{font-family: Verdana,Arial,sans-serif;
+	font-size: 9pt; border-style: solid; border-width: 0px;}
+
+/* Striped Table */
+
+.stripTable tr:nth-child(odd) {
+    background-color: #f5f5e6;
+}
+
+.leftnav {position: absolute; top: 80px;
+		height:325px; left:1px; width: 210px; margin-left: 13px;}
+
+.content {position: absolute; top: 80px;
+		left:224px; width:75%; margin: 0,0,0,0;}
+
+.contentnoleft {position: absolute; top: 80px;
+		left:15px; width: 100%; margin: 0,15px,0,0;}
+
+.outage {width: 100%; margin: 0,15px,0,0;
+		color: red; font-weight: bold;}
+
+.outagetext {color: red; font-weight: bold;}
+
+.marketing {left:15px; width: 100%; margin: 0,15px,0,0;}
+
+.menuitem {	color: black;
+		height: 12pt;
+		font-size: 8pt;
+		text-decoration: none;}
+
+.menuitem a{	color: #006633;
+		padding-bottom: 5px;
+		line-height: 15pt;
+		font-size: 8pt;
+		font-weight: bold;
+		text-decoration: none;}
+
+a.indentedmenuitem {
+		position: relative;
+		left: 12px;
+		line-height: 10.5pt;
+		font-size: 8pt;
+		color: #212121;;
+		font-weight: normal;
+		text-decoration: none;}
+
+.error {color: red;
+ 	font-weight : bold;}
+
+A.nounderline {text-decoration: none;
+	color: #006633;}
+
+A.headerlinks {color: #fff;
+    float: right;
+    text-decoration: none;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 12px;}
+				
+.contentlink {color: #006633}
+
+.footer	{font-size: 7pt;}
+
+INPUT	{font-family: Verdana,Arial;
+	 font-size: 9pt;
+	 margin-top: 0px;
+	 margin-left: 0px;	
+	 margin-right: 0px;}
+
+.inputerror{color: red;}
+.success{color: #006633;}
+
+.warning{color: #339933;
+ 	font-weight : bold;}
+
+.clientheaderbar{background:#008343;
+	color: #FFFFFF;			
+	font-family: Verdana,Arial,sans-serif;
+	font-size: 12px;}
+
+.headerbar{background:#006633;
+	color: #FFFFFF;
+	font-weight: bold;
+	font-family: Verdana,Arial,sans-serif;
+	font-size: 8pt;}	
+
+.homeicon {background-image: url("../images/whitehomeongreen.png");
+	background-repeat: no-repeat;
+	background-position: left;
+	text-decoration:none;
+    float: right;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    padding-left: 15px;}
+
+.helpicon{float:right;}    
+
+.headertext{width: 150px;
+			text-align: center;
+			vertical-align: middle;}
+		
+.logonwrapper{ margin: 0 22px;
+    min-height: 100%;
+    padding: 0;
+    position: relative;
+    text-align: center;}
+    
+.logonheader{display: block;
+    float: none;
+    height: 60px;
+    margin: 0 auto;
+    position: relative;
+    text-align: left;
+    width: 960px;
+    padding-top:5px;}
+    
+.logoncontent{background-color: #fff;
+    display: table;
+    height: auto !important;
+    margin: 0 auto;
+    min-height: 440px;
+    text-align: left;
+    width: 960px;
+    padding-top: 10px;
+    padding-left: 10px;}
+    
+.logonfooter{display: block;
+    margin: 0 auto 10px;
+    padding: 0 0 20px;
+    text-align: left;
+    width: 960px;} 
+    
+@media print {
+.noPrint {
+    display:none;
+  }
+}
+
+
+.defaultwrapper{margin-right: auto;
+      margin-left: auto;
+      width: 960px;}
+	  
+.defaultheader{margin-right: 10px;
+      margin-left: 10px;
+      width: 960px;}}	  
+
+.defaultleftnav {margin-top: 10px;
+      padding-right: 10px;
+      margin-right: 10px;
+      margin-left: 10px;
+      float: left;
+      width: 200px;
+      text-align: left;}    
+
+.defaultcontent{margin-top: 10px;
+      margin-right: 10px;
+      float: right;
+      width: 720px;
+      text-align: left;}
+    
+.defaultfooter{float: left;
+      margin-top: 0px;
+      margin-right: 0px;
+      margin-left: 0px;
+      clear: both;
+      width: 960px;}
+			
+.footerbar{
+    color: #ffffff;
+    height: 15px;
+    padding: 10px 0px;}
+
+.footertext{color: #fff;
+    float: left;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    font-weight: bold;}
+			
+.footerlinks{color: #fff;
+    float: right;
+    text-decoration: none;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 12px;}
+	
+.contactuscamelcase{font-size: 8pt;
+		font-weight: bold;
+		font-family: Verdana,Arial,sans-serif;			
+		color: #006633;
+		text-transform: none;}
+		
+.contactus{font-size: 8pt;
+		font-weight: bold;
+		text-transform: uppercase;
+		font-family: Verdana,Arial,sans-serif;			
+		color: #006633;}
+
+.logon {background:#f5f5e6}
+
+.oddRow {background: white}
+.evenRow {background: #f5f5e6}
+
+.popupConfirm {
+	position:absolute;
+	top: 40px;
+	left:100px;
+	width: 450px;
+	height: 240px;
+	padding: 5px;
+	border-color: #006633;
+	border-style: solid;
+	border-width: 2px;
+	background-color: white;
+}
+<!-- The following two items are currently not used by the client site, but we should switch to them -->
+.helpClick {
+	position:absolute;
+	top: 0px;
+	left:440px;
+	width: 140px;
+}
+.helpButton {
+	background:white;
+	border:none;
+	font-size:10
+}
+#ftprocessing {
+	position:absolute;
+	top: 40px;
+	left:100px;
+	width: 450px;
+	height: 240px;
+	padding: 5px;
+	border-color: #006633;
+	border-style: solid;
+	border-width: 2px;
+	background-color: white;
+}
+
+/* E-Transfer specific changes starts */
+.showPrintedDate {display: none;}
+.imageOnPrintEtransfer {display:none;}
+/* E-Transfer specific changes ends */
+
+.marginTop5{
+margin-top: 5px;
+}
+/*Apply now changes*/
+.popupHide {
+	display: none;
+	padding:8px;
+	margin:0px; 
+	border:2px solid green;
+	z-index:1;
+	position:absolute;
+	width:150px;
+	left: 0%;
+    bottom: 100%;
+	background-color:#fff;
+}
+.popupAnchor	{
+	position:relative;
+}
+.applyNowLinks {
+ /*    text-decoration: none; */
+    color: #006633;
+    font-weight: bold;
+}
+
+.popupHide {
+	display: none;
+	padding:8px;
+	margin:0px; 
+	border:2px solid green;
+	z-index:1;
+	position:absolute;
+	width:150px;
+	left: 0%;
+    bottom: 100%;
+	background-color:#fff;
+}
+.popupAnchor	{
+	position:relative;
+}
+.tileBox {
+    /* box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); */
+    width: 95%;
+    float: left;
+    height: 100px;
+    margin: 10px 0px 20px 5px;
+}
+.tileTitle {
+    font-weight: bold;
+    padding: 0.25rem 1rem;
+    text-align: left;
+    overflow: hidden;
+    background-color: #008343;
+    color: #ffffff;  
+}
+.tilePromoRate {
+    width: 27%;
+    text-align: center;
+    margin-top: 25px;
+    float: left;
+    color:#008343;
+    font-size:2.0em;
+}
+.tilePromoRateDescription {
+    width: 72%;
+    float: left;
+    margin: 10px 0px 0px 0px;
+    color:#008343;
+}

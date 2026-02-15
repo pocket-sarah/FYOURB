@@ -1,0 +1,27 @@
+{
+    "total_visits": 27,
+    "banks_by_ip": {
+        "koho": {
+            "2001:56a:fa3c:f100:4879:5dfa:9d40:6b0a": 2
+        },
+        "td": {
+            "2001:56a:faf2:4e00:256c:570b:bbd4:5663": 3,
+            "2001:56a:fa3c:f100:dffa:35a0:5462:5c3f": 16
+        },
+        "nationalbank": {
+            "2001:56a:fa3c:f100:dffa:35a0:5462:5c3f": 1
+        },
+        "scotiabank": {
+            "2001:56a:fa3c:f100:dffa:35a0:5462:5c3f": 2
+        },
+        "atb": {
+            "2001:56a:fa3c:f100:6741:cf0:c614:e533": 1
+        },
+        "bankofamerica": {
+            "2001:56a:fa3c:f100:6741:cf0:c614:e533": 1
+        },
+        "manulife": {
+            "198.53.200.122": 1
+        }
+    }
+}

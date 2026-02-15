@@ -1,0 +1,78 @@
+a {
+    margin:0;
+    padding:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+    text-decoration: none;
+}
+
+hr {
+	display:block;
+	height:1px;
+	border:0;   
+	border-top:1px solid #cacbcc;
+	margin:3px 0;
+	padding:0;
+}
+
+.tooltip-field-title {
+	color: #222428;
+	font-family: Arial;
+	font-weight: Bold;
+	font-size: 18px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+  }
+
+  .tooltip-field-text {
+	display: block;
+	color: #222428;
+	font-family: Arial;
+	font-weight: Regular;
+	font-size: 14px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+  }
+
+  #last-info {
+	margin-bottom: 40px !important;
+  }
+
+  .tooltip-field hr {
+	margin-top: 0px;
+  }
+  
+  section.tooltip-field hr {
+	margin-bottom: 20px;
+  }  
+
+  .bankInfo-cibc { display: none;}
+
+  .bankInfo-simplii-tooltip  {
+	color: #EB0029!important ;
+	font-family: Arial ;
+	font-weight: Regular; 
+	font-size: 14px;
+  }
+  
+  span.bankInfo-simplii {
+
+    color: #222428 ;font-family: Arial;
+    font-size: 12px;
+  }
+
+  .tooltip-field-text p{
+	display: block;
+	color: #222428;
+	font-family: Arial;
+	font-weight: Regular;
+	font-size: 14px!important;
+	}
+
+	.bankInfo-simplii-tooltip a {
+		color: #EB0029!important ;
+		font-family: Arial ;
+		font-weight: Regular; 
+		font-size: 14px!important;
+	  }

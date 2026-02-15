@@ -1,0 +1,687 @@
+/*PCF Specific Global*/
+*{
+	color: #222428;
+	line-height: 22px;
+}
+
+:lang(en) .currency-input > input { /*TETRIS*/
+	padding-left: 1.3em !important;
+}
+a {
+	color: #222428;
+	border-bottom: 2px solid #222428;
+}
+a:hover {
+	border-bottom: 2px solid #DF0089;
+}
+a u{
+	text-decoration: none;
+}
+a:has(img), a:hover:has(img){
+	border-bottom: none;
+}
+
+input[type='number'],
+input[type='text'],
+input[type='password'],
+input[type='email'],
+input[type='tel'],
+input[type='search'],
+#manage-cards-button,
+select {
+	border: 1px solid #848688;
+	background-color: #fff;
+	border-radius: 4px;
+	color: #222428;
+	padding: 5px 8px;
+	font-size: 12px;
+}
+input[type='number']:focus,
+input[type='text']:focus,
+input[type='password']:focus,
+input[type='email']:focus,
+input[type='tel']:focus,
+select:focus {
+	border: solid 1px #848688;
+}
+select{
+	color:#222428;
+	font-size: 12px;
+}
+input[type=radio]:checked{
+	display: none;
+}
+input[type=radio] + label{
+	width: 80px;
+	display: inline-block;
+}
+input[type=radio] + label:before{
+	width: 100px;
+	padding-left: 10px;
+	display: inline-block;
+}
+input[type=radio]:checked + label{
+	background: url("images/radio-button-ring-checked.png") 0 50% no-repeat ;
+	background-size: 16px;
+	width: 100px;
+}
+input[type=radio]:checked + label:before{
+	content: " ";
+	background: url("images/radio-button-dot-checked.png") 50% 50% no-repeat ;
+	background-size: 9px;
+	width: 12px;
+	height: 12px;
+	position: relative;
+	display: inline-block;
+	left: -3px;
+	top: 2px;
+ }
+form label, .key, .page-wrapper p.value {
+	font-size: 12px;
+}
+.btn {
+	-webkit-appearance: none;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+}
+#signon-button, .button-set .btn-positive {
+	border: none;
+	border-radius: 100px;
+	background-color: #DF0089;
+	color: #fff;
+	font-size: 16px;
+	cursor: pointer;
+}
+.btn-negative{
+	color: #DF0089;
+	border: 2px solid #DF0089;
+	font-size: 16px;
+	text-align: center;
+}
+.button-set .btn-positive,
+.button-set .btn-gray {
+	cursor: pointer;
+}
+.button-set .btn-gray {
+	color: #121418;
+}
+.button-set .btn-negative {
+	background-color: #fff;
+	color: #DF0089;
+	border: 2px solid #DF0089;
+	font-size: 16px;
+	border-radius: 100px;
+	padding: 8px 20px;
+	text-align: center;
+	cursor: pointer;
+}
+.btn-negative:hover{
+	background-color: #121418;
+	color: #fff;
+	border: none;
+	border: 2px solid #121418;
+}
+.btn:last-of-type.btn-negative:nth-of-type(2){
+	padding-right: 20px;
+}
+.button-set .btn-positive:last-child, .button-set .btn-negative:last-child{
+	border-right: 2px solid #DF0089;
+}
+.button-set .btn-positive:last-child:hover, .button-set .btn-negative:last-child:hover{
+	border-right: none;
+}
+.button-set {
+	background: none;
+}
+#signon-button:hover, .button-set .btn-positive:hover, .btn-negative:hover{
+	background-color: #121418;
+	color: #fff;
+	border: none;
+}
+#signon-button:focus{
+	background-color: #C40076;
+	color: #fff;
+	border: none;
+}
+.add-button{
+	color:#222428;
+	border-bottom: none;
+	background-position: 0 20px;
+}
+.add-button:hover{
+	border-bottom: none;
+}
+/*.add-button span{
+	border-bottom: 2px solid #222428;
+}
+.add-button:hover span{
+	border-bottom-color: #DF0089;
+}*/
+a.file-link{
+	color:#222428;
+}
+.tab-control a.active span {
+	color: #222428;
+}
+.alert-style{
+	color:#222428;
+}
+.alert-box{
+	outline: solid #cccbac 1px;
+}
+.alert-box p{
+	color:#222944 !important;
+}
+.font-color-clickable{
+	color:#c90404;
+}
+#next-link, #previous-link{
+	color: #222428;
+	border-bottom: none;
+}
+#next-link:before{
+	margin-top: 3px;
+}
+#previous-link:before{
+	margin-top: 4px;
+}
+/*PCF Specific Signon Header*/
+header {
+	/*border-bottom:0.33em solid #222944;*/
+	background-color: #121418;
+	padding-top: 0.825em;
+}
+#drawer-toggle-label{
+	background-color: #121418	;
+}
+#drawer-toggle-label:after{
+	background-color: #ffffff;
+}
+#header-logo {
+	width: 203px;
+	height: 35px;
+	bottom: -0.2em;
+}
+#adchoice-icon-link{
+	right: 4px;
+	position: absolute;
+}
+#header-title .title, #header-title .title em {
+	color: #FFFFFF !important;
+}
+#drawer-menu-header-lob {
+	color: #999999;
+	padding: 15px 0;
+	text-align: center;
+	font-size: 13.5px;
+}
+/*PCF Specific Drawer*/
+#drawer-menu{
+	background-color: #F4F5F6;
+}
+
+#drawer-menu #menu-wrapper{
+	background: none;
+}
+
+#drawer-menu .drawer-menu-header {
+	background-color: #121418;
+	color: #fff;
+	padding: 18px 25px 18px 22px; 
+}
+#drawer-menu .drawer-menu-header .account-holder-name, #drawer-menu .drawer-menu-header #profile-link span{
+	color: #fff;
+	font-size: 22px;
+	line-height: 26px;
+}
+#drawer-menu .drawer-menu-header #profile-link span{
+	font-size: 15px;
+}
+#drawer-menu .drawer-menu-header #preSignonLogo{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 203px;
+	margin-bottom: 0;
+}
+#drawer-menu ul{
+	background-color: #FFFFFF;
+	margin-bottom: 0;
+}
+#drawer-menu ul hr{
+	border-color: #CACBCC;
+}
+#drawer-menu ul hr:last-of-type{
+	margin-bottom: 0;
+	margin-top: 0;
+}
+#drawer-menu ul li a{
+	background-position: 26px 15px;
+	border-bottom: none;
+	background-size: 26px;
+}
+#drawer-menu ul li a:hover{
+	border-bottom: none;
+}
+#drawer-menu ul a, #drawer-menu ul a.active, #drawer-menu ul li a span{
+	color: #222428;
+	font-weight: 700;
+	font-size: 15px;
+}
+#drawer-menu ul a.active, #drawer-menu ul a.active em{
+	color: #DF0089;
+}
+#drawer-menu ul a.active{
+	background-color: transparent;
+}
+#drawer-menu ul li:has(a.nav-no-indent) {
+	background-color: #F4F5F6;
+}
+#drawer-menu ul li#li-sign-out {
+   background-color: #fff;
+}
+#drawer-menu .drawer-icon-cog{
+	height: 16px;
+	width: 16px;
+	top: 2px;
+}
+#drawer-menu #logout-link {
+	text-align: center;
+	font-weight: normal;
+	font-size: 16px;
+	margin: 16px;
+	padding: 9px 0;
+	background-color: #DF0089;
+	border-radius: 100px;
+	color: #FFFFFF;
+
+}
+#drawer-menu #logout-link:hover{
+	background-color: #121418;
+}
+#drawer-menu ul li#li-sign-on a.active{
+	background-image: url("images/drawer/Sign-On-icon-active.png");
+}
+#drawer-menu ul li#li-open-account a,
+#drawer-menu ul li#li-find-us a,
+#drawer-menu ul li#li-security a,
+#drawer-menu ul li#li-visit-site-pcf a  {
+	background: none;
+}
+#drawer-menu ul li#li-my-accounts a.active {
+	background-image: url('images/drawer/My-Accounts-icon-active.png');
+}
+#drawer-menu ul li#li-pay-bills a.active {
+	background-image: url('images/drawer/Bill-Payments-icon-active.png');
+}
+#drawer-menu ul li#li-interac a.active {
+	background-image: url('images/drawer/e-Transfer-icon-active.png');
+}
+#drawer-menu ul li#li-transfer a.active {
+	background-image: url('images/drawer/Transfers-icon-active.png');
+}
+#drawer-menu ul li#li-upcoming a.active {
+	background-image: url('images/drawer/Upcoming-Transactions-icon-active.png');
+}
+#drawer-menu ul li#li-browse-products a.active {
+	background-image: url('images/drawer/Browse-Products-icon-active.png');
+}
+
+/*PCF Specific Error Msgs*/
+.global-error-form-wrapper {
+	/*border: 1px solid #222944;*/
+	/*color: #222944;*/
+}
+.global-error-form-wrapper:before {
+	/*border-top: 17px solid #222944;*/
+}
+/*.error.help-msg:before, .tool-tip:before {
+	border-bottom: 10px solid #F7E2E5;
+}*/
+.error.help-msg, .tool-tip {
+	background: url(images/icon-error.png) 5px 15px no-repeat;
+	padding-left: 34px;
+	background-size: 16px;
+}
+.inline-error {
+	border: 2px solid #F7E2E5;
+	color: #EB0029;	
+}
+.error input[type=text], .error input[type=email], .error input[type=password], .error input[type=tel], .error input[type=number],
+.error select, .error select:hover, .error select:focus, .error-fs{
+	background-color: #F7E2E5 !important;
+	border: 1px solid #EB1B23 !important;
+}
+
+#confirm-ad-space{
+	background: #222944;
+}
+
+input:checked + .slider-round {
+	background-color: #DF0089;
+}
+
+.your-information {
+	height: 27px;
+	color: #222428;
+	font-size: 24px;
+	line-height: 27px;
+	text-align: center;
+}
+
+.details-header {
+	height: 35px;
+	color: #222428;
+	font-size: 21px;
+	letter-spacing: -0.43px;
+	line-height: 24px;
+	border-bottom: 5px solid #222428;
+	margin-bottom: 20px;
+	text-align: left;
+}
+
+.header-information {
+	color: #222428;
+	font-size: 24px;
+	line-height: 77px;
+	text-align: center;
+	background: #CACBCC;
+}
+
+.display-header {
+	display: none;
+}
+
+.confirm-img {
+	display: none;
+}
+
+.help-text {
+	color: #222428;
+	padding-bottom: 16px;
+}
+
+select, select:focus {
+	background:url(images/arrow-icon.png);/*BB7*/
+	background-repeat: no-repeat;/*BB7*/
+    background-position: right;/*BB7*/
+	background:url(images/arrow-icon.png) 95% no-repeat, #fff;
+	background-size: 12px;
+} 
+section#signoff div#sub-msg {color: #222428;}
+
+fieldset.bank-details-input {
+    margin-bottom: 0px !important;
+}
+
+input#bankInstitutionNo,
+input#bankTransitNo,
+fieldset#bankAccountNo,
+input#reenteraccountNumber,
+input#requestRecipient {
+    margin-bottom: 20px !important;
+}
+
+section#e-transfer-details input#reenteraccountNumber {
+    margin-bottom: 25px !important;
+}
+
+section#e-transfer-confirmation span.confirmation-alert {
+    position: relative;
+    bottom: 32px;
+    left: 23px;
+}
+
+.currency-input input {
+	margin-bottom: 20px !important;
+	}
+
+
+@media only screen and (max-device-width: 480px) {
+
+    section#e-transfer-confirmation span.confirmation-alert {
+        position: relative;
+        bottom: 35px;
+        max-width: 89%;
+        font-size: 11px !important;
+        float: left;
+        left: 26px;
+    }
+}
+.confirm-check {
+	background-color: #469566;
+}
+.pagination-section {
+	background: none;
+}
+.disclaimer-text{
+	color: #222428;
+	padding-top: 20px;
+}
+.cdic-text{
+	color: #222428;
+}
+.msg-pg-layout p{
+	color:#222428;
+}
+fieldset.vis-division,.vis-division li, .details-line {
+	border-bottom: 1px solid #cacbcc;
+}
+.vis-division li#ref-number span{
+	color: #848688;
+}
+.key, .value .sub-val, label, #full-page-error p,
+form p.form-helper,
+.input-form label,
+.verify .emphasis,
+.block-link li a,
+#header-link a,
+.page-title,
+.page-title-manual,
+.confirm-check-message p,
+.confirm-check-message h3,
+.confirm-email-message p,
+.confirm-email-message h3,
+.page-footer,
+.error.help-msg, .tool-tip,
+.currency-input > input{
+	color: #222428 !important;
+}
+
+.currency-input > input::-webkit-input-placeholder,
+.currency-input > input:::-moz-placeholder,
+.currency-input > input:-ms-input-placeholder,
+.check-label{
+	color: #222428 !important;
+}
+
+.block-link li a, a.profile-sect-wrap{
+	border-bottom: none;
+}
+.value{
+	font-size: 0.85em;
+}
+
+.icon-pencil-lt:before,
+.icon-pencil-drk:before{
+	background-size: 50%;
+}
+@media only screen and (min-width: 768px) {
+	input[type=radio]:checked + label:before{
+		left: -2px;
+	}
+}
+#drawer-toggle-label{
+	height: 3.70em;
+}
+#drawer-toggle-label img#open-menu-icon{
+	height: 24px;
+	width: 24px;
+	left: 15px;
+	top: 18px;
+}
+.overlay-msg{
+	background-color: rgba(0,0,0,0.8);
+}
+
+.overlay-msg div{
+	margin-top: 20px;
+	background: #fff;
+	border-radius: 4px;
+	border-radius: 4px;
+}
+.overlay-msg div p{
+	padding: 0;
+}
+
+nav ~ #main-page{
+	margin-top: 67px;
+	padding-top: 0;
+}
+section.page-title{
+	margin-top: -20px;
+}
+section.page-title .title {
+	font-weight: bold;
+	color:#222428;
+}
+.error-wrap{
+	margin-top: -20px;
+}
+.error-check{
+	background-color: #F7E2E5;
+}
+
+#full-page-error{
+	background-color: #F7E2E5;
+	border: none;
+}
+
+.page-wrapper {
+	margin: 20px;
+	border: 1px solid #CACBCC;
+	border-radius: 4px;
+}
+.back-button img{
+    width: 1.2em;
+    top: 2px;
+}
+.global-error-form-wrapper {
+	background: #F7E2E5;
+	line-height: 22px;
+}
+.global-error-form-wrapper:after{
+	border-top-color: #F7E2E5;
+}
+.global-error-form-msg {
+	padding: 20px 25px;
+	padding-left: 64px;
+	background: url("images/icon-error.png") 25px 23px no-repeat;
+	background-size: 21px 18px;
+}
+.global-error-form-msg a{
+	text-decoration: none;
+	color: #222428;
+	border-bottom: 2px solid #222428;
+}
+.global-error-form-msg a:hover{
+	text-decoration: none;
+	color: #222428;
+	border-bottom: 2px solid #DF0089;
+}
+.tab-control a {
+	border-bottom: #cacbcc 1px solid;
+	font-weight: bold;
+	color: #222428;
+}
+.tab-control a span{
+	color: #848688;
+}
+.tab-control a:first-of-type, .tab-control a:nth-of-type(2){
+	background:none;
+}
+.tab-control a.active {
+	border-bottom:6px solid #DF0089;
+	border-radius: 4px 4px 0 0;
+}
+
+@media only screen and (min-width: 768px) {
+	.page-wrapper {
+		margin: 20px auto;
+	}
+}
+@media only screen and (max-width: 450px) {
+	.button-set .btn-positive, .button-set .btn-negative{
+		width: 100%;
+		margin-bottom: 15px;
+	}
+}
+.transaction-history-more {
+	background-color: transparent;
+	color: #222428;
+}
+.transaction-table-title {
+	padding: 5px 10px;
+	border-bottom: 2px solid #222428;
+	color: #222428;
+	background-color: #cacbcc;
+}
+.inline-msg {
+	font-size: 12px;
+}
+.check-label::before{
+	background: none;
+	border: 1px solid #222428;
+	width:16px;
+	height:16px;
+	left:-25px;
+	top:-2px;
+	border-radius: 4px;
+
+}
+.check-box:checked + .check-label::before{
+	background: url("images/checkbox-selected.png") 50% 50% no-repeat #DF0089;
+	background-size: 12px;
+	border:none;
+}
+.ab-slideup .ab-background{
+	background-color: #222428 !important;
+}
+.switch-slider .slider-round {
+	background-color: #848688;
+}
+input:checked + .slider-round:before {
+	-webkit-transform: translateX(25px);
+	-ms-transform: translateX(25px);
+	transform: translateX(25px);
+}
+#header-security-link{
+    top: 0;
+}
+#header-security-link a img{
+    padding: 16px 10px;
+}
+
+#manage-cards li a{
+	border-bottom: none;
+}
+#manage-cards li a:hover{
+	text-decoration: none;
+	border-bottom: none;
+}
+
+#profile-display .profile-display-pcf-customer-id, #example-acct-number, .static-field-label{
+	color: #222428!important;
+}
+
+#payee-nickname a.edit-button {
+	border-bottom: none;
+}
+
+#payee-nickname a.edit-button:hover {
+	border-bottom: none;
+}
+:lang(en) .currency-input > span{
+	font-size: 12px;
+}

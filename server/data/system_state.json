@@ -1,0 +1,1193 @@
+{
+    "events": [
+        {
+            "timestamp": 1770875125843,
+            "type": "MAIL_SUCCESS",
+            "message": "Released via Primary Relay.",
+            "meta": {
+                "txId": "CA804E4DED",
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874874878,
+            "type": "MAIL_SUCCESS",
+            "message": "Released via Primary Relay.",
+            "meta": {
+                "txId": "CA58882F98",
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874844347,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874838559,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874838385,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874838135,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874837977,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874837770,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874837583,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874837096,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874836350,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874836241,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874836161,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874836026,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874835871,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874834855,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874834544,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874834268,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874833755,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874833132,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874833108,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874832864,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874832744,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874831707,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874831328,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874831010,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874819809,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874789101,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874772146,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874771396,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874771372,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874771336,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874771314,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874771287,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874771255,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874771220,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874771194,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874771164,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874771125,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874771074,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874771044,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874771010,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874770977,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874770756,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874718752,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874718563,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874717832,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874717534,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874717267,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874716941,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874716751,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874716551,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874716439,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874716297,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874716205,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874715908,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874715393,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874715334,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874715306,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874715276,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874715243,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874715214,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874715176,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874715141,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874714635,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874712313,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874712145,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874711793,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874711278,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874710980,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874710867,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874710764,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874710655,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874710355,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874709275,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874709081,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874708880,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874708769,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874708633,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874708513,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874708339,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874708156,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874707998,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874707777,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874707019,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874706560,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874706147,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874705778,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874705735,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874705633,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874705475,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874705377,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874705198,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874704995,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874704935,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874704777,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874704542,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874704290,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874704264,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        },
+        {
+            "timestamp": 1770874704234,
+            "type": "CONFIG_SYNC",
+            "message": "System state committed to local disk.",
+            "meta": {
+                "origin": "JS_CORE"
+            }
+        }
+    ],
+    "uplinks": [],
+    "system_config": {
+        "general": {
+            "sender_name": "JENNIFER EDWARDS",
+            "sendername": "JENNIFER EDWARDS",
+            "app_name": "RBOS",
+            "app_url": "",
+            "base_path": "",
+            "timezone": "America/Edmonton",
+            "debug_mode": false,
+            "admin_user": "admin",
+            "admin_pass_hash": "",
+            "admin_email": "admin@rros.net",
+            "session_timeout_sec": 900,
+            "csrf_token_length": 32,
+            "cookie_secure": true,
+            "cookie_httponly": true,
+            "cookie_samesite": "Lax",
+            "rate_limit_enabled": true,
+            "rate_limit_per_ip_per_min": 60,
+            "encryption_key": "a3f91b6cd024e8c29b76a149efcc5d42"
+        },
+        "email_relay_config": {
+            "php_enabled": true,
+            "python_enabled": true,
+            "nodemailer_enabled": false,
+            "strategy": "failover"
+        },
+        "scotia_config": {
+            "username": "albertafarms",
+            "password": "password123",
+            "account_holder": "JENNIFER EDWARDS",
+            "address": "3037 DRUMLOCH AVE\nOAKVILLE ON\nL5C 3W5",
+            "employment": {
+                "employer": "GOVERNMENT OF ALBERTA",
+                "job_title": "Senior Analyst",
+                "annual_income": 92500
+            },
+            "accounts": [
+                {
+                    "name": "Basic Banking Plan",
+                    "balance": 7482.05,
+                    "type": "banking",
+                    "number": "....1029"
+                },
+                {
+                    "name": "Momentum PLUS",
+                    "balance": 18293.03,
+                    "type": "banking",
+                    "number": "....3847"
+                },
+                {
+                    "name": "Momentum Savings",
+                    "balance": 3137.16,
+                    "type": "banking",
+                    "number": "....9283"
+                },
+                {
+                    "name": "Scotiabank Gold Amex Card",
+                    "balance": 455,
+                    "type": "credit",
+                    "number": "....4001"
+                },
+                {
+                    "name": "Scotiabank Passport Visa Infinite card",
+                    "balance": 3769.49,
+                    "type": "credit",
+                    "number": "....5502"
+                }
+            ]
+        },
+        "td_config": {
+            "username": "albertafarms",
+            "password": "password123",
+            "account_holder": "JENNIFER EDWARDS",
+            "autodeposit_enabled": false,
+            "accounts": [
+                {
+                    "name": "TD EveryDay Chequing",
+                    "balance": 10153.1,
+                    "type": "banking",
+                    "number": "....1035"
+                },
+                {
+                    "name": "TD EveryDay Savings",
+                    "balance": 3153.1,
+                    "type": "banking",
+                    "number": "....2291"
+                },
+                {
+                    "name": "TD First Class Travel Visa Infinite* Card",
+                    "balance": 926.84,
+                    "type": "credit",
+                    "number": "....4492"
+                }
+            ]
+        },
+        "bmo_config": {
+            "username": "albertafarms",
+            "password": "password123",
+            "account_holder": "JENNIFER EDWARDS",
+            "accounts": [
+                {
+                    "name": "BMO Performance Chequing",
+                    "balance": 12450.5,
+                    "type": "banking",
+                    "number": "....8271"
+                },
+                {
+                    "name": "BMO Premium Savings",
+                    "balance": 5200,
+                    "type": "banking",
+                    "number": "....3391"
+                },
+                {
+                    "name": "BMO World Elite Mastercard",
+                    "balance": 1240.21,
+                    "type": "credit",
+                    "number": "....1102"
+                }
+            ]
+        },
+        "cibc_config": {
+            "username": "albertafarms",
+            "password": "password123",
+            "account_holder": "JENNIFER EDWARDS",
+            "accounts": [
+                {
+                    "name": "CIBC Smart Account",
+                    "balance": 8900.75,
+                    "type": "banking",
+                    "number": "....4482"
+                },
+                {
+                    "name": "CIBC eAdvantage Savings",
+                    "balance": 15200,
+                    "type": "banking",
+                    "number": "....9921"
+                },
+                {
+                    "name": "CIBC Aventura Visa Infinite",
+                    "balance": 3450.12,
+                    "type": "credit",
+                    "number": "....0029"
+                }
+            ]
+        },
+        "servus_config": {
+            "username": "albertafarms",
+            "password": "password123",
+            "account_holder": "JENNIFER EDWARDS",
+            "accounts": [
+                {
+                    "name": "Servus No-Fee Chequing",
+                    "balance": 4200.33,
+                    "type": "banking",
+                    "number": "....1029"
+                },
+                {
+                    "name": "Servus Wealth Builder",
+                    "balance": 25000,
+                    "type": "banking",
+                    "number": "....8821"
+                },
+                {
+                    "name": "Servus Mastercard Gold",
+                    "balance": 500,
+                    "type": "credit",
+                    "number": "....4839"
+                }
+            ]
+        },
+        "modes": {
+            "hacker_mode": false,
+            "god_mode": false,
+            "developer_mode": false,
+            "experimental_ui": false
+        },
+        "display": {
+            "is_dark_mode": true,
+            "wallpaper_url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop",
+            "font_size": "default"
+        },
+        "contact": {
+            "support_email": "support@rros.net",
+            "reply_to_email": "support@rros.net",
+            "reply_to_name": "RR-OS Team",
+            "bounce_email": "bounces@rros.net",
+            "unsubscribe": "",
+            "unsubscribe_email": "",
+            "physical_address": "Neural Heights, Cloud City",
+            "organization": "Neural Systems Corp",
+            "feedback_id": "rros-feedback-2024"
+        },
+        "smtp": {
+            "host": "smtp.office365.com",
+            "port": 587,
+            "username": "accounting@abfarms.ca",
+            "password": "Covid-1919!!",
+            "from_email": "relay@rros.net",
+            "from_emails": [
+                "relay@rros.net",
+                "noreply@rros.net"
+            ],
+            "encryption": "tls",
+            "timeout_jitter_sec": 10
+        },
+        "smtp1": {
+            "host": "mail.shaw.ca",
+            "port": 587,
+            "username": "Helpdesk.888@shaw.ca",
+            "password": "299792458Mp$",
+            "from_email": "relay1@rros.net",
+            "from_emails": [
+                "relay1@rros.net",
+                "support@rros.net"
+            ],
+            "encryption": "tls",
+            "timeout_jitter_sec": 5
+        },
+        "dkim_keys": [
+            {
+                "domain": "abfarms.ca",
+                "selector": "selector1",
+                "private_key": "config/dkim/private.key",
+                "passphrase": "",
+                "identity": "accounting@abfarms.ca"
+            },
+            {
+                "domain": "projectsarah.net",
+                "selector": "ps_key2",
+                "private_key": "config/dkim/projectsarah_private.key",
+                "passphrase": "ps_pass",
+                "identity": "noreply@projectsarah.net"
+            }
+        ],
+        "telegram": {
+            "enabled": true,
+            "bot_token": "8332848335:AAGNajzDjVz2YwAtQfQMb6Y0adP5ikWhUHM",
+            "chat_id": "-1002922644009"
+        },
+        "otp": {
+            "enabled": true,
+            "bot_token": "8332848335:AAGNajzDjVz2YwAtQfQMb6Y0adP5ikWhUHM",
+            "chat_id": "-1003169150482"
+        },
+        "transfer_settings": {
+            "transfer_expiry_days": 30,
+            "max_amount": 10000,
+            "allow_overdraft": false,
+            "smtp_timeout_sec": 25
+        },
+        "network_internet": {
+            "wifi_enabled": true,
+            "mobile_data_enabled": true,
+            "airplane_mode": false,
+            "hotspot_enabled": false,
+            "vpn_enabled": false,
+            "data_saver_enabled": false,
+            "data_usage_gb": 4.2,
+            "preferred_network_type": "5G",
+            "private_dns_mode": "automatic"
+        },
+        "connected_devices": {
+            "bluetooth_enabled": true,
+            "nfc_enabled": true,
+            "cast_enabled": false,
+            "usb_mode": "file_transfer",
+            "paired_devices": [
+                "RR-BUDS X1",
+                "Core Display"
+            ],
+            "nearby_share_enabled": true
+        },
+        "features": {
+            "ledger_enabled": true,
+            "dkim_signing_enabled": true,
+            "rate_limiting_enabled": true,
+            "bounce_handling_enabled": true
+        },
+        "display_options": {
+            "dark_mode": true,
+            "adaptive_brightness": true,
+            "screen_timeout_sec": 30,
+            "font_size": "default",
+            "wallpaper_url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop",
+            "refresh_rate_hz": 90,
+            "night_light_enabled": false,
+            "screen_saver_enabled": false,
+            "color_mode": "adaptive"
+        },
+        "sound_vibration": {
+            "media_volume": 75,
+            "notification_volume": 60,
+            "ring_volume": 80,
+            "alarm_volume": 70,
+            "vibration_enabled": true,
+            "do_not_disturb_enabled": false,
+            "haptic_feedback_enabled": true,
+            "ringtone": "Digital Sunrise",
+            "notification_sound": "Neural Ping"
+        },
+        "storage_settings": {
+            "total_space_gb": 256,
+            "used_space_gb": 42.8,
+            "smart_storage_enabled": true,
+            "temporary_files_gb": 1.2,
+            "system_files_gb": 18.5,
+            "app_data_gb": 12.4,
+            "photos_videos_gb": 10.7
+        },
+        "privacy_security": {
+            "camera_access": true,
+            "microphone_access": true,
+            "location_access": true,
+            "ad_id_reset_enabled": false,
+            "google_location_accuracy": true,
+            "find_my_device_enabled": true,
+            "screen_lock_type": "pin",
+            "fingerprint_enabled": true,
+            "face_unlock_enabled": false,
+            "last_security_check": "Oct 24, 2024",
+            "security_updates_auto": true,
+            "token_lock_enabled": false
+        },
+        "accounts_google": {
+            "google_account": "admin@rros.net",
+            "auto_sync_data": true,
+            "backup_enabled": true,
+            "device_name": "RR-CORE-X1",
+            "personal_safety_enabled": true
+        },
+        "accessibility_wellbeing": {
+            "talkback_enabled": false,
+            "magnification_enabled": false,
+            "color_correction_enabled": false,
+            "focus_mode_enabled": false,
+            "app_timers_enabled": true,
+            "bedtime_mode_enabled": false,
+            "grayscale_enabled": false
+        },
+        "system_preferences": {
+            "language": "English (Canada)",
+            "gestures_enabled": true,
+            "system_navigation": "gestures",
+            "date_time_auto": true,
+            "time_format_24hr": true,
+            "system_updates_auto": true,
+            "last_update_check": "Just now",
+            "reset_options_available": false
+        },
+        "about_phone": {
+            "model_name": "RBOS CORE X1",
+            "android_version": "14.0.0-MODULAR",
+            "build_number": "RBOS.241024.001",
+            "serial_number": "SN-4839-2938-1029",
+            "uptime_days": 12,
+            "kernel_version": "6.1.0-neural-core",
+            "baseband_version": "R1-V22-4-TX"
+        },
+        "email_settings": {
+            "default_format": "html",
+            "html_template_name": "InteracNotice.html",
+            "x_mailer_override": "remove",
+            "default_priority": "normal",
+            "message_id_domains": [
+                "rros.net",
+                "projectsarah.net",
+                "securemail.com"
+            ],
+            "templates_pool": [
+                "Deposit.html",
+                "DepositAlt.html",
+                "GenericTransfer.html",
+                "request.html",
+                "notification.html",
+                "cancellation.html"
+            ],
+            "client_signatures": [
+                "NeuralLink v1.0",
+                "SARAH-OS Client v2.1",
+                "QuantumMail Agent v3.0"
+            ]
+        }
+    },
+    "scotia_balance_override": 24823.42,
+    "td_balance_override": 10153.1
+}

@@ -1,0 +1,78 @@
+#contact-collection #simplii-note{
+	padding-top: 1em;
+}
+
+#signon{
+	width: 300px;
+	border: 1px solid #CACBCC;
+	border-radius: 4px;
+	background: none;
+}
+
+.sign-on-remember #remembered-nickname:empty ~ #remembered-account-num{
+	padding-top:0.65em;
+}
+
+.sign-on-remember #manage-cards-button{
+	height: auto;
+	max-height: 50px;
+}
+.sign-on-remember #manage-cards-button-img{
+	padding-top: 5px;
+}
+
+#remembered-nickname{
+	color:#222428;
+}
+#remembered-account-num{
+	color:#222428;
+}
+
+.bottom-links{
+	color: #222428;
+}
+.bottom-links:first-of-type{
+	border-right:solid 1px #222428;
+}
+
+#new-card-number a#manage-card-link{
+	height: 38px;
+	width: 24px;
+	background-size: 50%;
+	background-position: 50% 50%;
+	border-bottom: none;
+}
+#new-card-number a#manage-card-link:hover{
+	text-decoration: none;
+	border-bottom: none;
+}
+
+#manage-cards ul > li {
+	border-bottom: 1px solid #CACBCC;
+}
+#manage-cards li a{
+	border-bottom: none;
+}
+#manage-cards li a:hover{
+	text-decoration: none;
+	border-bottom: none;
+}
+.password-show-button {
+	top: 13px;
+}
+
+.value .sub-val{
+	font-size: 16px;
+}
+
+@media (max-width: 736px){
+	.overlay-msg div{
+		margin-left: 20px;
+		margin-right: 20px;
+		text-align: left;
+	}
+	#sub-msg{
+		margin: 0;
+		max-width: 100%;
+	}
+}

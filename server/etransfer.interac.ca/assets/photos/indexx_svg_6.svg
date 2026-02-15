@@ -1,0 +1,10 @@
+<svg class="check-mark-select" enable-background="new 0 10 165 165" overflow="visible" version="1.1" viewbox="0 0 165 165" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<switch>
+<g>
+<defs></defs>
+<circle cx="82.5" cy="82.5" fill="#39B54A" r="82.5"></circle>
+<path d="M51.404,109.79c-1.951,1.952-1.951,5.118,0,7.071l8.84,8.838c1.951,1.952,5.117,1.952,7.07,0l70.489-70.489  c1.951-1.953,1.951-5.119,0-7.071l-8.838-8.838c-1.953-1.953-5.119-1.953-7.072,0L51.404,109.79z" fill="#FFFFFF"></path>
+<path d="M76.402,109.79c1.953,1.952,1.953,5.119,0,7.071l-8.838,8.838c-1.953,1.952-5.119,1.952-7.07,0  L27.195,92.401c-1.951-1.952-1.951-5.118,0-7.07l8.838-8.839    c1.953-1.952,5.119-1.952,7.072,0L76.402,109.79z" fill="#FFFFFF"></path>
+</g>
+</switch>
+</svg>

@@ -1,0 +1,160 @@
+BODY	{font-family: Verdana,Arial,sans-serif;
+	 font-size: 9pt;
+	 margin-top: 0px;
+	 margin-left: 1px;	
+	 margin-right: 0px;
+	 background: white;}
+
+h1	{font-family : Verdana,Arial,sans-serif;
+	font-weight : bold;
+	color : black;
+	text-decoration : none;
+	font-size : 12pt;}
+
+h2	{font-family : Verdana,Arial,sans-serif;
+	font-weight : bold;
+	color : black;
+	text-decoration : none;
+	font-size : 9pt;}
+
+table {width: 100%; border: 0px;} 
+
+th	{font-family: Verdana,Arial,sans-serif;
+	font-weight : bold;
+	font-size: 9pt;
+	background: #669966;
+	color: white;
+	vertical-align: bottom;}
+
+td	{font-family: Verdana,Arial,sans-serif;
+	font-size: 9pt; border-style: solid; border-width: 0px;}
+
+.leftnav {display:none}
+
+.content {position: relative; top: 0px;
+		left:0px; width:100%; margin: 0,0,0,0;}
+
+.contentnoleft {position: relative;
+		top: 0px; left:15px; width: 100%; margin: 0,15px,0,0;}
+
+.outage {position: relative; height: 60px;
+		top: 0px; left:15px; width: 100%; margin: 0,15px,0,0;
+		color: red; font-weight: bold;}
+
+.marketing {position: relative;
+		top: 0px; left:15px; width: 100%; margin: 0,15px,0,0;}
+
+.leftnav table tr.indentedmenuitem {height: 12px; left:13px;}
+
+.leftnav table tr.indentedmenuitem td a{font-size: 8pt;
+				color: #212121;
+				font-weight:normal;
+				text-decoration: none;}
+
+.leftnav table tr td.noclickmenuitem {position: relative;
+			color: #006633;
+			font-size: 8pt;
+			font-weight: bold;
+			text-decoration: none;}
+
+.leftnav table tr td a{position: relative;
+			color: #006633;
+			font-size: 8pt;
+			font-weight: bold;
+			text-decoration: none;}
+
+.leftnav table tr {height: 20px;}
+
+.error {color: red;
+ 	font-weight : bold;}
+
+A.nounderline {text-decoration: none;
+				color: #006633;}
+
+.contentlink {color: #006633}
+
+.footer	{font-size: 7pt;}
+
+INPUT	{font-family: Verdana,Arial;
+	 font-size: 9pt;
+	 margin-top: 0px;
+	 margin-left: 0px;	
+	 margin-right: 0px;}
+
+.inputerror{color: red;}
+
+.warning{color: #339933;
+ 	font-weight : bold;}
+
+.headerbar{background:#006633;
+			color: #FFFFFF;
+			font-weight: bold;
+			font-family: Verdana,Arial,sans-serif;
+			font-size: 8pt;}
+
+.headertext{width: 150px;
+			text-align: center;
+			vertical-align: middle;}
+
+.contactus{font-size: 8pt;
+		font-weight: bold;
+		text-transform: uppercase;
+		font-family: Verdana,Arial,sans-serif;			
+		color: #006633;}
+
+.logon {background:#f5f5e6}
+
+.oddRow {background: white}
+.evenRow {background: #f5f5e6}
+
+.popupConfirm {
+	position:absolute;
+	top: 40px;
+	left:100px;
+	width: 450px;
+	height: 240px;
+	padding: 5px;
+	border-color: #006633;
+	border-style: solid;
+	border-width: 2px;
+	background-color: white;
+}
+<!-- The following two items are currently not used by the client site, but we should switch to them -->
+.helpClick {
+	position:absolute;
+	top: 0px;
+	left:440px;
+	width: 140px;
+}
+.helpButton {
+	background:white;
+	border:none;
+	font-size:10
+}
+#ftprocessing {
+	position:absolute;
+	top: 40px;
+	left:100px;
+	width: 450px;
+	height: 240px;
+	padding: 5px;
+	border-color: #006633;
+	border-style: solid;
+	border-width: 2px;
+	background-color: white;
+}
+
+@media print {
+.noPrint {
+    display:none;
+  }
+}
+
+/* E-Transfer specific changes starts */
+.contactUsEtransfer {display:none}
+.headerbarEtransfer {display:none}
+.helpEtransfer {display:none}
+.printEtransfer {display:none}
+.showButtonsEtransfer {display:none}
+.imageOnScreenEtransfer {display:none}
+/* E-Transfer specific changes ends */
