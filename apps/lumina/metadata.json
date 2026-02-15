@@ -1,0 +1,5 @@
+{
+  "name": "Harvester OMNI-NODE",
+  "description": "A high-fidelity cyber-reconnaissance simulator that utilizes Gemini AI to generate and verify simulated data leaks, featuring a neural network vault and real-time matrix visualization.",
+  "requestFramePermissions": []
+}

@@ -40,3 +40,10 @@
 2026-02-15T00:35:00Z INF Retrying connection in up to 1s connIndex=0 event=0 ip=198.41.200.193
 2026-02-15T00:35:02Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.200.193
 2026-02-15T00:35:02Z INF Registered tunnel connection connIndex=0 connection=5cad263a-12eb-43d4-b7e2-ebbfe1f722ea event=0 ip=198.41.200.193 location=sea06 protocol=quic
+2026-02-15T00:56:41Z ERR failed to accept incoming stream requests error="failed to accept QUIC stream: timeout: no recent network activity" connIndex=0 event=0 ip=198.41.200.193
+2026-02-15T00:56:41Z ERR failed to run the datagram handler error="timeout: no recent network activity" connIndex=0 event=0 ip=198.41.200.193
+2026-02-15T00:56:41Z ERR failed to serve tunnel connection error="accept stream listener encountered a failure while serving" connIndex=0 event=0 ip=198.41.200.193
+2026-02-15T00:56:41Z ERR Serve tunnel error error="accept stream listener encountered a failure while serving" connIndex=0 event=0 ip=198.41.200.193
+2026-02-15T00:56:41Z INF Retrying connection in up to 1s connIndex=0 event=0 ip=198.41.200.193
+2026-02-15T00:56:42Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.200.193
+2026-02-15T00:56:42Z INF Registered tunnel connection connIndex=0 connection=bcd78225-a1c1-4f55-8619-ff0d17326bbc event=0 ip=198.41.200.193 location=sea08 protocol=quic
