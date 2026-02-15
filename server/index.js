@@ -177,8 +177,8 @@ app.use('/api', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-    if (fs.existsSync(path.join(distPath, 'index.html'))) {
-        res.sendFile(path.join(distPath, 'index.html'));
+    if (fs.existsSync(path.join(distPath, '../index.html'))) {
+        res.sendFile(path.join(distPath, '../index.html'));
     } else {
         res.status(503).send("System build artifacts not found.");
     }
