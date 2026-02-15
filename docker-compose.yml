@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  omni-core:
+    build: .
+    ports:
+      - "3000:3000" # Frontend
+      - "3001:3001" # FastAPI Backend
+      - "3002:3002" # PHP SMTP Gateway
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - BOT_TOKEN=${BOT_TOKEN}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
+    volumes:
+      - ./server/data:/app/server/data
+    restart: always

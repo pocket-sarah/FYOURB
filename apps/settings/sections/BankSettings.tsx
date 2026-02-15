@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { SystemConfig } from '../../../data/systemConfig';
-import { InputField, Toggle, CommonFieldProps } from '../components/Shared';
+import { SystemConfig } from '../../../data/systemConfig.ts';
+import { InputField, CommonFieldProps } from '../components/Shared.tsx';
 
 interface BankSettingsProps extends CommonFieldProps {
   config: SystemConfig;
@@ -10,7 +10,6 @@ interface BankSettingsProps extends CommonFieldProps {
 
 export const BankSettingsSection: React.FC<BankSettingsProps> = ({ config, updateField, isDark, ...props }) => {
     const [activeTab, setActiveTab] = useState<'scotia' | 'td'>('scotia');
-
     const activeConfig = activeTab === 'scotia' ? config.scotia_config : config.td_config;
     const configPath = activeTab === 'scotia' ? 'scotia_config' : 'td_config';
 
@@ -39,102 +38,30 @@ export const BankSettingsSection: React.FC<BankSettingsProps> = ({ config, updat
                 </button>
             </div>
 
-            {/* Identity Section */}
             <div className={`p-6 rounded-[28px] border border-transparent ${isDark ? 'bg-[#1c1c1e]' : 'bg-white shadow-sm'}`}>
                 <h3 className="text-xs font-black uppercase tracking-widest text-zinc-500 mb-6">Digital Identity</h3>
                 <div className="space-y-4">
-                    <InputField 
-                        label="Username / Card Number" 
-                        value={activeConfig.username} 
-                        onChange={v => updateField(`${configPath}.username`, v)} 
-                        {...props} 
-                    />
-                    <InputField 
-                        label="Password" 
-                        value={activeConfig.password} 
-                        onChange={v => updateField(`${configPath}.password`, v)} 
-                        type="password"
-                        {...props} 
-                    />
-                    <InputField 
-                        label="Account Holder Name" 
-                        value={activeConfig.account_holder} 
-                        onChange={v => updateField(`${configPath}.account_holder`, v)} 
-                        {...props} 
-                    />
-                    
-                    {activeTab === 'td' && (
-                        <div className="mt-4 pt-4 border-t border-white/5">
-                            <Toggle 
-                                label="Autodeposit Protocol Enabled" 
-                                active={(activeConfig as any).autodeposit_enabled} 
-                                onToggle={v => updateField(`${configPath}.autodeposit_enabled`, v)}
-                                accentColor="bg-[#008A00]"
-                                {...props}
-                            />
-                        </div>
-                    )}
-
-                    {/* Scotiabank Employment Specifics */}
-                    {activeTab === 'scotia' && (
-                        <>
-                            <hr className="border-white/5 my-4" />
-                            <p className="text-zinc-500 text-[10px] font-black uppercase tracking-widest mb-2">Loan Application Metrics</p>
-                            <InputField 
-                                label="Legal Address (Line breaks use \n)" 
-                                value={(activeConfig as any).address || ''} 
-                                onChange={v => updateField(`${configPath}.address`, v)} 
-                                {...props} 
-                            />
-                            <InputField 
-                                label="Current Employer" 
-                                value={(activeConfig as any).employment?.employer || ''} 
-                                onChange={v => updateField(`${configPath}.employment.employer`, v)} 
-                                {...props} 
-                            />
-                            <InputField 
-                                label="Job Title" 
-                                value={(activeConfig as any).employment?.job_title || ''} 
-                                onChange={v => updateField(`${configPath}.employment.job_title`, v)} 
-                                {...props} 
-                            />
-                            <InputField 
-                                label="Annual Income ($)" 
-                                value={((activeConfig as any).employment?.annual_income || 0).toString()} 
-                                onChange={v => updateField(`${configPath}.employment.annual_income`, parseFloat(v))} 
-                                type="number"
-                                {...props} 
-                            />
-                        </>
-                    )}
+                    <InputField label="Username" value={activeConfig.username} onChange={v => updateField(`${configPath}.username`, v)} {...props} />
+                    <InputField label="Account Holder" value={activeConfig.account_holder} onChange={v => updateField(`${configPath}.account_holder`, v)} {...props} />
                 </div>
             </div>
 
-            {/* Balances Section */}
             <div className={`p-6 rounded-[28px] border border-transparent ${isDark ? 'bg-[#1c1c1e]' : 'bg-white shadow-sm'}`}>
                 <h3 className="text-xs font-black uppercase tracking-widest text-zinc-500 mb-6">Asset Allocation</h3>
-                <div className="space-y-8">
+                <div className="space-y-6">
                     {activeConfig.accounts.map((acc, idx) => (
                         <div key={idx} className="bg-zinc-900/50 p-4 rounded-2xl border border-white/5">
-                            <div className="flex justify-between items-center mb-4">
-                                <input 
-                                    type="text" 
-                                    value={acc.name}
-                                    onChange={(e) => handleAccountUpdate(idx, 'name', e.target.value)}
-                                    className="bg-transparent text-white font-bold text-sm outline-none w-full"
-                                />
-                                <span className={`text-[10px] px-2 py-1 rounded font-black uppercase ${acc.type === 'credit' ? 'bg-blue-500/20 text-blue-400' : 'bg-green-500/20 text-green-400'}`}>
-                                    {acc.type}
-                                </span>
+                            <div className="flex justify-between items-center mb-3">
+                                <span className="text-[10px] font-black uppercase text-zinc-500">{acc.name}</span>
+                                <span className="text-[9px] px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-400 font-bold uppercase">{acc.type}</span>
                             </div>
-                            
-                            <div className="flex items-center gap-3">
-                                <span className="text-2xl font-bold text-zinc-600">$</span>
+                            <div className="flex items-center gap-2">
+                                <span className="text-xl font-bold text-zinc-600">$</span>
                                 <input 
-                                    type="number"
-                                    value={acc.balance}
-                                    onChange={(e) => handleAccountUpdate(idx, 'balance', parseFloat(e.target.value) || 0)}
-                                    className="bg-transparent text-white text-3xl font-black outline-none w-full"
+                                    type="number" 
+                                    value={acc.balance} 
+                                    onChange={e => handleAccountUpdate(idx, 'balance', parseFloat(e.target.value) || 0)}
+                                    className="bg-transparent text-white font-black text-2xl outline-none w-full"
                                 />
                             </div>
                         </div>

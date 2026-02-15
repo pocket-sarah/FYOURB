@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 interface RRButtonProps {
@@ -9,11 +8,10 @@ interface RRButtonProps {
     className?: string;
     disabled?: boolean;
     loading?: boolean;
-    square?: boolean;
 }
 
 const RRButton: React.FC<RRButtonProps> = ({ 
-    onClick, children, variant = 'primary', brand = 'system', className = '', disabled, loading, square = false
+    onClick, children, variant = 'primary', brand = 'system', className = '', disabled, loading 
 }) => {
     const brandColors = {
         scotia: {
@@ -33,8 +31,7 @@ const RRButton: React.FC<RRButtonProps> = ({
         }
     };
 
-    const borderRadius = square ? 'rounded-none' : 'rounded-[18px]';
-    const baseStyles = `w-full py-4 ${borderRadius} font-black text-[14px] uppercase tracking-widest transition-all active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-2`;
+    const baseStyles = 'w-full py-4 rounded-[18px] font-black text-[14px] uppercase tracking-widest transition-all active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-2';
     const variantStyles = brandColors[brand][variant as keyof typeof brandColors['system']] || brandColors[brand].primary;
 
     return (

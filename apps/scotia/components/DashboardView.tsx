@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { ChevronRightIcon, SearchIcon, InfoIcon, InteracLogoNew } from '../ScotiaIcons';
+import { ChevronRightIcon, SearchIcon, InfoIcon } from '../ScotiaIcons';
 import { ScotiaAccountMap, ScotiaAccount } from '../types';
 import TopHeader from './TopHeader';
 
@@ -8,15 +8,14 @@ interface DashboardViewProps {
   accounts: ScotiaAccountMap;
   onSelectAccount: (name: string) => void;
   onMobileDeposit: () => void;
-  onETransfer: () => void;
+  onETransferHub: () => void; // Changed from onETransfer to onETransferHub
   onChat: () => void;
-  onNotification: () => void;
 }
 
-const DashboardView: React.FC<DashboardViewProps> = ({ accounts, onSelectAccount, onMobileDeposit, onETransfer, onChat, onNotification }) => {
+const DashboardView: React.FC<DashboardViewProps> = ({ accounts, onSelectAccount, onMobileDeposit, onETransferHub, onChat }) => {
   return (
     <div className="flex-1 flex flex-col bg-black overflow-hidden h-full">
-      <TopHeader title="Move money" onChat={onChat} onNotification={onNotification} />
+      <TopHeader title="Move money" onChat={onChat} />
 
       <div className="flex-1 overflow-y-auto no-scrollbar pb-32 pt-6">
         {/* Quick Actions */}
@@ -39,7 +38,7 @@ const DashboardView: React.FC<DashboardViewProps> = ({ accounts, onSelectAccount
                         <p className="text-white font-bold text-[16px] leading-tight mb-5 line-clamp-2">Abagail June Carruthers</p>
                         <p className="text-zinc-500 text-[12px] font-medium">Last sent: <span className="text-zinc-400 font-bold">Jul 27</span></p>
                     </div>
-                    <button onClick={onETransfer} className="w-full py-4 border-t border-white/5 text-[#3b82f6] font-black text-[14px] active:bg-white/5 transition-all uppercase tracking-wider">Send</button>
+                    <button onClick={onETransferHub} className="w-full py-4 border-t border-white/5 text-[#3b82f6] font-black text-[14px] active:bg-white/5 transition-all uppercase tracking-wider">Send</button>
                 </div>
 
                 <div className="w-[210px] shrink-0 bg-[#1c1c1e] border border-white/5 rounded-[20px] shadow-2xl flex flex-col relative overflow-hidden group">
@@ -85,9 +84,10 @@ const DashboardView: React.FC<DashboardViewProps> = ({ accounts, onSelectAccount
                     <ChevronRightIcon color="#3b82f6" size={20} />
                 </button>
 
-                <button onClick={onETransfer} className="w-full flex items-center gap-6 group active:opacity-60 transition-all text-left">
+                <button onClick={onETransferHub} className="w-full flex items-center gap-6 group active:opacity-60 transition-all text-left">
                     <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center relative border border-white/10 shadow-xl group-active:scale-95 transition-transform overflow-hidden">
-                        <InteracLogoNew className="w-8 h-8" />
+                        <div className="absolute inset-0 bg-[#FFCC00] opacity-10"></div>
+                        <div className="w-11 h-11 bg-[#FFCC00] rounded-lg flex items-center justify-center text-[8px] font-black text-black shadow-inner">INTERAC</div>
                     </div>
                     <div className="flex-1">
                         <p className="text-white font-bold text-[16px] tracking-tight">Interac e-transfer</p>

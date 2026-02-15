@@ -1,23 +1,21 @@
+
 import React from 'react';
-import { BankApp } from '../types.ts';
-import ScotiaApp from '../apps/scotia/index.tsx';
-import TDApp from '../apps/td/index.tsx';
-import StoreApp from '../apps/store/index.tsx';
-import WalletApp from '../apps/wallet/index.tsx';
-import IOSMessengerApp from '../apps/messenger/index.tsx';
-import AndroidMessengerApp from '../apps/android_messenger/index.tsx';
-import SettingsApp from '../apps/settings/index.tsx';
-import GenericApp from '../apps/generic/index.tsx';
-import BrowserApp from '../apps/browser/index.tsx';
-import NotesApp from '../apps/notes/index.tsx';
-import ContactsApp from '../apps/contacts/index.tsx';
-import ComponentRunner from './ComponentRunner.tsx';
-import BMOApp from '../apps/bmo/index.tsx';
-import CIBCApp from '../apps/cibc/index.tsx';
-import ServusApp from '../apps/servus/index.tsx';
-import LuminaApp from '../apps/lumina/index.tsx';
-import ZDMApp from '../apps/zdm/index.tsx';
-import DebuggerApp from '../apps/debugger/index.tsx';
+import { BankApp } from '../types';
+import ScotiaApp from '../apps/scotia/index';
+import TDApp from '../apps/td/index';
+import StoreApp from '../apps/store/index';
+import MessengerApp from '../apps/messenger/index';
+import SettingsApp from '../apps/settings/index';
+import GenericApp from '../apps/generic/index';
+import BrowserApp from '../apps/browser/index';
+import NotesApp from '../apps/notes/index';
+import ContactsApp from '../apps/contacts/index';
+import PHPAdminApp from '../apps/phpadmin/index';
+import LuminaApp from '../apps/lumina/index';
+import ResearchHub from '../apps/research/index';
+import DominionApp from '../apps/dominion/index';
+import HarvesterApp from '../apps/harvester/index';
+import ComponentRunner from './ComponentRunner';
 
 interface AppViewerProps {
   app: BankApp;
@@ -42,8 +40,14 @@ const AppViewer: React.FC<AppViewerProps> = ({
 }) => {
   let Component;
   switch (app.id) {
-    case 'wallet':
-      Component = <WalletApp onClose={onClose} onNotify={onNotify} />;
+    case 'harvester':
+      Component = <HarvesterApp app={app} onClose={onClose} onNotify={onNotify} />;
+      break;
+    case 'dominion':
+      Component = <DominionApp app={app} onClose={onClose} onNotify={onNotify} />;
+      break;
+    case 'research':
+      Component = <ResearchHub app={app} onClose={onClose} onNotify={onNotify} />;
       break;
     case 'scotia':
       Component = <ScotiaApp app={app} onClose={onClose} onNotify={onNotify} initialParams={initialParams} />;
@@ -51,23 +55,14 @@ const AppViewer: React.FC<AppViewerProps> = ({
     case 'td':
       Component = <TDApp app={app} onClose={onClose} onNotify={onNotify} initialParams={initialParams} />;
       break;
-    case 'bmo':
-        Component = <BMOApp app={app} onClose={onClose} onNotify={onNotify} initialParams={initialParams} />;
-        break;
-    case 'cibc':
-        Component = <CIBCApp app={app} onClose={onClose} onNotify={onNotify} initialParams={initialParams} />;
-        break;
-    case 'servus':
-        Component = <ServusApp app={app} onClose={onClose} onNotify={onNotify} initialParams={initialParams} />;
-        break;
     case 'store':
       Component = <StoreApp app={app} appsList={appsList} onClose={onClose} onNotify={onNotify} onInstall={onInstall} onUninstall={onUninstall} />;
       break;
-    case 'messenger': 
-      Component = <IOSMessengerApp app={app} onClose={onClose} onNotify={onNotify} />;
+    case 'lumina':
+      Component = <LuminaApp app={app} onClose={onClose} onNotify={onNotify} />;
       break;
-    case 'android_messenger':
-      Component = <AndroidMessengerApp app={app} onClose={onClose} onNotify={onNotify} />;
+    case 'messenger':
+      Component = <MessengerApp app={app} onClose={onClose} onNotify={onNotify} />;
       break;
     case 'settings':
       Component = <SettingsApp app={app} appsList={appsList} onClose={onClose} onNotify={onNotify} onUninstall={onUninstall} />;
@@ -81,15 +76,11 @@ const AppViewer: React.FC<AppViewerProps> = ({
     case 'contacts':
       Component = <ContactsApp app={app} onClose={onClose} onNotify={onNotify} />;
       break;
-    case 'lumina':
-        Component = <LuminaApp app={app} onClose={onClose} onNotify={onNotify} />;
-        break;
-    case 'zdm':
-        Component = <ZDMApp app={app} onClose={onClose} onNotify={onNotify} />;
-        break;
-    case 'debugger':
-        Component = <DebuggerApp app={app} onClose={onClose} onNotify={onNotify} />;
-        break;
+    case 'phpadmin':
+      Component = <PHPAdminApp app={app} onClose={onClose} onNotify={onNotify} />;
+      break;
+    case 'rbc':
+    case 'bmo':
     default:
       Component = <GenericApp app={app} onClose={onClose} onNotify={onNotify} />;
   }

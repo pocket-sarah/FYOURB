@@ -20,6 +20,7 @@ export interface AppState {
   currentView: ViewState;
   activeAppId: string | null;
   isEditMode: boolean;
+  isSwitcherOpen: boolean;
 }
 
 export type InstallStage = 'idle' | 'preparing' | 'installing' | 'completed';
@@ -29,7 +30,8 @@ export enum ToolMode {
   IMAGE = 'image',
   VIDEO = 'video',
   AUDIT = 'audit',
-  EXPLOIT = 'exploit'
+  EXPLOIT = 'exploit',
+  HARVEST = 'harvest'
 }
 
 export interface Message {
@@ -37,6 +39,11 @@ export interface Message {
   role: 'user' | 'assistant' | 'system';
   content: string;
   timestamp: number;
+  metadata?: {
+    type?: 'code' | 'alert' | 'discovery';
+    code?: string;
+    suggestions?: string[];
+  };
 }
 
 export interface GeneratedAsset {
@@ -54,41 +61,4 @@ export interface EvidenceRecord {
   payload: any;
   timestamp: number;
   integrity_hash: string;
-}
-
-export interface NetworkNode {
-  id: string;
-  group: number;
-  status: 'active' | 'compromised' | 'offline';
-  ip: string;
-  x?: number;
-  y?: number;
-  fx?: number | null;
-  fy?: number | null;
-}
-
-export interface NetworkLink {
-  source: string | NetworkNode;
-  target: string | NetworkNode;
-  value: number;
-  id?: string;
-}
-
-export interface NetworkData {
-  nodes: NetworkNode[];
-  links: NetworkLink[];
-}
-
-export interface LogEntry {
-  id: string;
-  timestamp: string | Date;
-  level: 'SYSTEM' | 'INFO' | 'SUCCESS' | 'ERROR' | 'WARN';
-  message: string;
-}
-
-export interface MetricPoint {
-  time: string | number;
-  inbound: number;
-  outbound: number;
-  cpu: number;
 }

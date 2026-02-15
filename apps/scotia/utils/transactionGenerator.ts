@@ -1,3 +1,4 @@
+
 import { ScotiaTransaction } from '../types';
 import { EDMONTON_EMPLOYERS, EDMONTON_BILLERS, EDMONTON_MERCHANTS } from '../constants';
 
@@ -19,7 +20,7 @@ export const generateEdmontonHistory = (count: number = 40): ScotiaTransaction[]
         id: `pay-${currentDate.getTime()}`,
         date: dateStr,
         description: EDMONTON_EMPLOYERS[Math.floor(Math.random() * EDMONTON_EMPLOYERS.length)] + " / PAYROLL",
-        amount: Math.round((2850.42 + (Math.random() * 300)) * 100) / 100,
+        amount: 2850.42 + (Math.random() * 300),
         status: 'Completed',
         category: 'Income'
       });
@@ -31,7 +32,7 @@ export const generateEdmontonHistory = (count: number = 40): ScotiaTransaction[]
         id: `bill-${currentDate.getTime()}`,
         date: dateStr,
         description: EDMONTON_BILLERS[Math.floor(Math.random() * EDMONTON_BILLERS.length)],
-        amount: Math.round(-(120 + Math.random() * 200) * 100) / 100,
+        amount: -(120 + Math.random() * 200),
         status: 'Completed',
         category: 'Bills'
       });
@@ -44,7 +45,7 @@ export const generateEdmontonHistory = (count: number = 40): ScotiaTransaction[]
         id: `shop-${currentDate.getTime()}`,
         date: dateStr,
         description: merchant,
-        amount: Math.round(-(15 + Math.random() * 110) * 100) / 100,
+        amount: -(15 + Math.random() * 110),
         status: 'Completed',
         category: 'Shopping'
       });

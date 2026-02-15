@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GeminiService } from '../services/gemini';
@@ -8,16 +9,18 @@ interface NeuralAidOverlayProps {
     onClose: () => void;
 }
 
+// Fix: Use casted any for motion component to bypass intrinsic property errors
+const MotionDiv = motion.div as any;
+
 const NeuralAidOverlay: React.FC<NeuralAidOverlayProps> = ({ componentId, isOpen, onClose }) => {
     const [advice, setAdvice] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
-    const MotionDiv = motion.div as any;
 
     const requestAid = async () => {
         setIsLoading(true);
         try {
             const result = await GeminiService.generateText(
-                `The user is currently using the ${componentId} module in RR-OS. 
+                `The user is currently using the ${componentId} module in RBOS OS. 
                 Provide 3 quick "Neural Tips" for using this specific application efficiently. 
                 Keep it high-tech, concise, and helpful.`
             );
@@ -33,6 +36,7 @@ const NeuralAidOverlay: React.FC<NeuralAidOverlayProps> = ({ componentId, isOpen
 
     return (
         <AnimatePresence>
+            {/* Fix: Use MotionDiv */}
             <MotionDiv 
                 initial={{ opacity: 0 }} 
                 animate={{ opacity: 1 }} 
@@ -40,6 +44,7 @@ const NeuralAidOverlay: React.FC<NeuralAidOverlayProps> = ({ componentId, isOpen
                 className="fixed inset-0 z-[2000] bg-black/40 backdrop-blur-md flex items-end justify-center p-6"
                 onClick={onClose}
             >
+                {/* Fix: Use MotionDiv */}
                 <MotionDiv 
                     initial={{ y: 100 }} 
                     animate={{ y: 0 }} 
@@ -85,7 +90,7 @@ const NeuralAidOverlay: React.FC<NeuralAidOverlayProps> = ({ componentId, isOpen
                     </div>
 
                     <div className="pt-6 border-t border-white/5 flex justify-center">
-                        <p className="text-[9px] text-zinc-600 font-bold uppercase tracking-[0.3em]">RR-OS Neural Link v22.4</p>
+                        <p className="text-[9px] text-zinc-600 font-bold uppercase tracking-[0.3em]">RBOS Neural Link v22.4</p>
                     </div>
                 </MotionDiv>
             </MotionDiv>

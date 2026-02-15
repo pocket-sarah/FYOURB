@@ -1,9 +1,10 @@
+
 import React, { useState, useEffect } from 'react';
 import { BankApp } from '../../types';
 import { useBankingState } from '../../hooks/useBankingState';
 import { TDLogoSVG } from './TDIcons';
-import { getSystemConfig } from '../../data/systemConfig'; 
 import { ScotiaAccountMap, ScotiaAccount } from '../scotia/types';
+import { getSystemConfig } from '../../data/systemConfig'; 
 
 // Modular Components
 import LoginView from './views/LoginView';
@@ -19,30 +20,17 @@ import MoveMoneyView from './views/MoveMoneyView';
 import RewardsView from './views/RewardsView';
 import MoreView from './views/MoreView';
 
-// Define a more specific payload interface for handleTransactionComplete
-interface TransactionPayload {
-    recipientName?: string;
-    recipientEmail?: string;
-    sourceAccount?: string;
-    targetAccount?: string;
-    txId?: string;
-    description?: string;
-    payee?: string;
-    message?: string;
-}
-
 const TDApp: React.FC<{ app: BankApp, onClose: () => void, onNotify: any, initialParams?: any }> = ({ 
     app, onClose, onNotify, initialParams 
 }) => {
   const [stage, setStage] = useState<'splash' | 'login' | 'dashboard'>('splash');
   const [activeTab, setActiveTab] = useState<'home' | 'accounts' | 'move' | 'rewards' | 'more'>('home');
   const [selectedAccount, setSelectedAccount] = useState<string | null>(null);
-  // Add 'chat' to the workflow state type
   const [workflow, setWorkflow] = useState<'etransfer' | 'billpay' | 'deposit' | 'transfer' | 'chat' | null>(null);
   
-  // Hydrate initial accounts from SystemConfig
   const systemConfig = getSystemConfig();
   const initialAccounts: ScotiaAccountMap = {};
+  
   systemConfig.td_config.accounts.forEach(acc => {
       initialAccounts[acc.name] = {
           type: acc.type,
@@ -55,19 +43,6 @@ const TDApp: React.FC<{ app: BankApp, onClose: () => void, onNotify: any, initia
   });
 
   const { accounts, performTransaction } = useBankingState('td_mobile_high_fidelity', initialAccounts);
-  
-  const [pendingTransfers, setPendingTransfers] = useState<any[]>(() => {
-      const saved = localStorage.getItem('td_pending_etransfers');
-      return saved ? JSON.parse(saved) : [];
-  });
-
-  // State for username to pass to login view
-  const [username] = useState(systemConfig.td_config.username);
-  const [senderName] = useState(systemConfig.general.sender_name);
-
-  useEffect(() => {
-      localStorage.setItem('td_pending_etransfers', JSON.stringify(pendingTransfers));
-  }, [pendingTransfers]);
 
   useEffect(() => {
     const t = setTimeout(() => {
@@ -84,21 +59,10 @@ const TDApp: React.FC<{ app: BankApp, onClose: () => void, onNotify: any, initia
     return () => clearTimeout(t);
   }, [initialParams]);
 
-  const handleTransactionComplete = (type: 'send' | 'bill' | 'deposit' | 'internal', amount: number, payload: TransactionPayload) => {
+  const handleTransactionComplete = (type: any, amount: number, payload: any) => {
       performTransaction(type, amount, payload);
-      if (type === 'send') {
-          const newPending = {
-              id: payload.txId || `TD-${Date.now()}`,
-              recipientName: payload.recipientName,
-              recipientEmail: payload.recipientEmail,
-              amount: amount,
-              date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-              status: 'Sent',
-              message: payload.message,
-              sourceAccount: payload.sourceAccount
-          };
-          setPendingTransfers(prev => [newPending, ...prev]);
-      }
+      setWorkflow(null);
+      onNotify("TD Bank", `${type.toUpperCase()} successful.`, app.icon);
   };
 
   const handleSignOut = () => {
@@ -117,7 +81,7 @@ const TDApp: React.FC<{ app: BankApp, onClose: () => void, onNotify: any, initia
   }
 
   if (stage === 'login') {
-    return <LoginView onSignIn={() => setStage('dashboard')} initialUsername={username} />;
+    return <LoginView onSignIn={() => setStage('dashboard')} initialUsername={systemConfig.td_config.username} />;
   }
 
   return (
@@ -188,11 +152,11 @@ const TDApp: React.FC<{ app: BankApp, onClose: () => void, onNotify: any, initia
             app={app} 
             onClose={() => setWorkflow(null)} 
             onNotify={onNotify} 
-            onComplete={(t, a, p) => handleTransactionComplete(t, a, p)} 
+            onComplete={(t, a, p) => handleTransactionComplete('send', a, p)}
             accounts={accounts}
-            pendingTransfers={pendingTransfers}
-            setPendingTransfers={setPendingTransfers}
-            senderName={senderName} 
+            pendingTransfers={[]}
+            setPendingTransfers={() => {}}
+            senderName={systemConfig.general.sender_name}
         />
       )}
       {workflow === 'billpay' && <BillPaymentView accounts={accounts} onPay={(amt, p, f) => handleTransactionComplete('bill', amt, { payee: p, sourceAccount: f })} onBack={() => setWorkflow(null)} />}

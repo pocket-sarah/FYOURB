@@ -1,82 +1,85 @@
-import logging
+
 import os
-import sys
+import asyncio
+import logging
+from contextlib import asynccontextmanager
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from services.bot import TelegramBot
+from services.mailer import MailerService
+from services.ai import AIService
+from api.router import router as api_router
+from dotenv import load_dotenv
 
-# Protocol Initialization
-logging.basicConfig(level=logging.INFO, format='%(asctime)s | %(levelname)s | %(name)s | %(message)s')
-logger = logging.getLogger("SARAH-CORE")
+# Initialize Environmental Shield
+load_dotenv(dotenv_path="../.env.local")
 
-try:
-    import uvicorn
-    from fastapi import FastAPI, Request
-    from fastapi.middleware.cors import CORSMiddleware
-    from services.database import db
-    from services.ai import AIService
-    from services.mailer import MailerService
-    from services.bot import TelegramBot
-    from services.harvester import HarvesterService # New Service
-    from api.router import router as api_router
-    import google.generativeai 
-except ImportError as e:
-    logger.critical(f"NEURAL MATRIX FAILURE: Missing Dependency -> {e}")
-    sys.exit(1)
+# Logging Protocol: OMNI-CORE Standard
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger("OMNI-CORE")
 
-app = FastAPI(title="SARAH CORE")
+class SystemState:
+    """Centralized container for system-level uplinks."""
+    def __init__(self):
+        self.bot = None
+        self.mailer = None
+        self.ai = None
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Setup Sequence
+    state = SystemState()
+    
+    # 1. Telegram Uplink
+    bot_token = os.getenv("BOT_TOKEN", "8332848335:AAGNajzDjVz2YwAtQfQMb6Y0adP5ikWhUHM")
+    state.bot = TelegramBot(token=bot_token)
+    
+    # 2. SMTP Relay
+    state.mailer = MailerService()
+    
+    # 3. Neural Matrix (AI)
+    # Support for multiple key failover
+    api_keys = [os.getenv("GEMINI_API_KEY")] + [os.getenv(f"GEMINI_API_KEY_{i}") for i in range(2, 21)]
+    state.ai = AIService(api_keys=api_keys)
+
+    # Attach to FastAPI application state
+    app.state.bot = state.bot
+    app.state.mailer = state.mailer
+    app.state.ai = state.ai
+
+    logger.info(" --- OMNI-CORE V22.4 RBOS NEURAL RESEARCH ENGINE LOADED --- ") # Updated branding
+    
+    if bot_token:
+        asyncio.create_task(state.bot.start())
+    
+    yield
+    
+    # Teardown Sequence
+    if state.bot:
+        await state.bot.stop()
+    logger.info(" --- OMNI-CORE RBOS SHUTDOWN COMPLETE --- ") # Updated branding
+
+# Fast API Matrix Entry
+app = FastAPI(
+    title="RBOS-CORE Neural API", # Updated branding
+    version="22.4.0",
+    lifespan=lifespan
+)
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Initialize Services
-GEMINI_KEY = os.getenv("GEMINI_API_KEY", "AIzaSyDXAD-SoyiDl4PI4a6-fTL91GdUqT-zRY4")
-
-gemini_api_keys = [GEMINI_KEY]
-for i in range(1, 11): 
-    key = os.getenv(f"GEMINI_API_KEY_{i}")
-    if key: gemini_api_keys.append(key)
-
-BOT_TOKEN = os.getenv("BOT_TOKEN", "")
-
-app.state.db = db
-app.state.ai = AIService(gemini_api_keys)
-app.state.mailer = MailerService()
-app.state.bot = TelegramBot(BOT_TOKEN, app.state.ai, app.state.mailer)
-app.state.harvester = HarvesterService(app.state.ai) # New Service Instance
-
+# Connect Router Grid
 app.include_router(api_router)
 
-# New Harvester Endpoints
-@app.post("/api/harvester/trigger")
-async def trigger_harvest(request: Request):
-    await request.app.state.harvester.run_cycle()
-    return {"success": True}
-
-@app.get("/api/harvester/status")
-async def get_harvester_status(request: Request):
-    return request.app.state.harvester.get_status()
-
-@app.on_event("startup")
-async def startup_event():
-    logger.info("=== SARAH-CORE INITIALIZING ===")
-    if BOT_TOKEN:
-        import asyncio
-        asyncio.create_task(app.state.bot.start())
-    logger.info("=== SARAH-CORE READY ===")
-
-@app.on_event("shutdown")
-async def shutdown_event():
-    if hasattr(app.state, "bot") and app.state.bot:
-        await app.state.bot.stop()
-
 if __name__ == "__main__":
-    try:
-        port = int(os.getenv("PORT", 3001))
-        logger.info(f"Igniting Logic Core on port {port}...")
-        uvicorn.run("main:app", host="0.0.0.0", port=port, reload=False, workers=1)
-    except Exception as e:
-        logger.critical(f"CORE IGNITION FAILED: {e}")
-        sys.exit(1)
+    import uvicorn
+    # Execution entry for development environments
+    uvicorn.run("main:app", host="127.0.0.1", port=3001, reload=True)

@@ -1,7 +1,11 @@
+
 import React, { useState } from 'react';
 import { GeminiService } from '../services/gemini';
 import { GeneratedAsset } from '../types';
 import { motion, AnimatePresence } from 'framer-motion';
+
+// Fix: Use casted any for motion component to bypass intrinsic property errors
+const MotionDiv = motion.div as any;
 
 const ImageGenerator: React.FC = () => {
   const [prompt, setPrompt] = useState('');
@@ -11,8 +15,6 @@ const ImageGenerator: React.FC = () => {
       const saved = localStorage.getItem('lumina_image_gallery');
       return saved ? JSON.parse(saved) : [];
   });
-
-  const MotionDiv = motion.div as any;
 
   const handleGenerate = async () => {
     if (!prompt.trim() || isGenerating) return;
@@ -108,6 +110,7 @@ const ImageGenerator: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pb-20">
                 <AnimatePresence>
                     {gallery.map((asset) => (
+                        /* Fix: Use MotionDiv */
                         <MotionDiv 
                             key={asset.id}
                             initial={{ opacity: 0, scale: 0.9 }}

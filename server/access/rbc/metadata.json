@@ -1,5 +1,0 @@
-{
-  "name": "RBC Royal Bank - Secure Sign In",
-  "description": "A single PHP file application mimicking RBC Royal Bank's secure sign-in process with Telegram remote control for multi-step verification.",
-  "requestFramePermissions": []
-}

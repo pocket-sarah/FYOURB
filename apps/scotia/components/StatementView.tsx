@@ -22,7 +22,6 @@ const StatementView: React.FC<StatementViewProps> = ({ accountName, account, onC
         <div className="flex justify-between items-start">
           <div className="space-y-1">
             <div className="flex items-center gap-2 mb-4">
-              {/* Clean logo, colored for white background context */}
               <ScotiaLogoSVG color="#ED0711" className="w-10 h-10" />
               <span className="text-[#ED0711] font-black text-2xl tracking-tighter">Scotiabank</span>
             </div>

@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 
 interface NotificationProps {
@@ -5,10 +6,9 @@ interface NotificationProps {
   message: string;
   icon: string;
   onClose: () => void;
-  onClick?: () => void;
 }
 
-const SystemNotification: React.FC<NotificationProps> = ({ title, message, icon, onClose, onClick }) => {
+const SystemNotification: React.FC<NotificationProps> = ({ title, message, icon, onClose }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -20,18 +20,12 @@ const SystemNotification: React.FC<NotificationProps> = ({ title, message, icon,
     return () => clearTimeout(timer);
   }, [onClose]);
 
-  const handleInteraction = () => {
-    if (onClick) onClick();
-    setIsVisible(false);
-    setTimeout(onClose, 500);
-  };
-
   return (
     <div 
       className={`fixed top-4 left-4 right-4 z-[200] transition-all duration-500 transform cursor-pointer ${
         isVisible ? 'translate-y-0 opacity-100' : '-translate-y-20 opacity-0'
       }`}
-      onClick={handleInteraction}
+      onClick={() => setIsVisible(false)}
     >
       <div className="bg-white/80 backdrop-blur-2xl rounded-[24px] p-4 shadow-2xl border border-white/20 flex items-start gap-3">
         <div className="w-10 h-10 rounded-xl overflow-hidden shadow-sm bg-white shrink-0">

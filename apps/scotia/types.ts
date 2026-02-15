@@ -29,8 +29,6 @@ export interface PendingTransfer {
   securityAnswer?: string;
   status: 'Sent' | 'Pending' | 'Deposited' | 'Expired' | 'Failed' | 'Cancelled';
   link?: string;
-  // Added optional message property to support custom messages in Interac e-Transfers
-  message?: string;
 }
 
 export interface Contact {

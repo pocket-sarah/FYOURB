@@ -1,15 +1,18 @@
+
 import React, { useState } from 'react';
 import { TDLogoSVG } from '../TDIcons';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface LoginViewProps {
   onSignIn: () => void;
+  // Added optional initialUsername property to resolve TDApp usage error
   initialUsername?: string;
 }
 
 const LoginView: React.FC<LoginViewProps> = ({ onSignIn, initialUsername }) => {
   const [showQuickView, setShowQuickView] = useState(false);
-  const [username, setUsername] = useState(initialUsername || 'albertafarms');
+  // Initializing state with initialUsername if available
+  const [username, setUsername] = useState(initialUsername || 'albe****rms');
   const MotionDiv = motion.div as any;
 
   return (

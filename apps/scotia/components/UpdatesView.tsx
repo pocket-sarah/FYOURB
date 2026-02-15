@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { ScotiaAccountMap } from '../types';
 import { ChevronRightIcon, GiftIcon } from '../ScotiaIcons';

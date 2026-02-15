@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo } from 'react';
 import { ScotiaLogoSVG, ChevronDownIcon, SendIcon } from '../ScotiaIcons';
 import { ScotiaAccountMap, ScotiaAccount, PendingTransfer } from '../types';
@@ -48,9 +49,8 @@ const ScotiaBalanceWidget: React.FC<ScotiaBalanceWidgetProps> = ({ accounts, onO
             
             <div className="flex justify-between items-start mb-6 relative z-10">
                 <div className="flex items-center gap-3">
-                    {/* Pure white logo, no background container */}
-                    <div className="w-8 h-8 flex items-center justify-center">
-                        <ScotiaLogoSVG color="white" className="w-full h-full" />
+                    <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center shadow-xl">
+                        <ScotiaLogoSVG color="#ED0711" className="w-7 h-7" />
                     </div>
                     <div className="flex flex-col">
                         <span className="text-white/80 text-[11px] font-black uppercase tracking-[0.2em]">Scotiabank®</span>

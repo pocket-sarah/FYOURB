@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import NeuralAidOverlay from '../../../components/NeuralAidOverlay';
@@ -9,11 +10,14 @@ interface AppLayoutProps {
     title?: string;
 }
 
+// Fix: Use casted any for motion component to bypass intrinsic property errors
+const MotionDiv = motion.div as any;
+
 const AppLayout: React.FC<AppLayoutProps> = ({ children, brandColor = '#1c1c1e', onClose, title }) => {
     const [isAidOpen, setIsAidOpen] = useState(false);
-    const MotionDiv = motion.div as any;
 
     return (
+        /* Fix: Use MotionDiv */
         <MotionDiv 
             initial={{ opacity: 0, y: 50, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { SystemConfig } from '../../../data/systemConfig';
 import { InputField, Toggle, InfoField, CommonFieldProps } from '../components/Shared';
@@ -90,7 +91,6 @@ export const PrivacySection: React.FC<AndroidSectionProps> = ({ config, updateFi
     <InputField label="Screen Lock Type" value={config.privacy_security.screen_lock_type} onChange={v => updateField('privacy_security.screen_lock_type', v)} placeholder="pin" {...props} />
     <Toggle label="Fingerprint Unlock" active={config.privacy_security.fingerprint_enabled} onToggle={v => updateField('privacy_security.fingerprint_enabled', v)} {...props} />
     <Toggle label="Face Unlock" active={config.privacy_security.face_unlock_enabled} onToggle={v => updateField('privacy_security.face_unlock_enabled', v)} {...props} />
-    <Toggle label="URL Token Authorization" active={config.privacy_security.token_lock_enabled} onToggle={v => updateField('privacy_security.token_lock_enabled', v)} {...props} />
     <InfoField label="Last Security Check" value={config.privacy_security.last_security_check} {...props} />
     <Toggle label="Auto Security Updates" active={config.privacy_security.security_updates_auto} onToggle={v => updateField('privacy_security.security_updates_auto', v)} {...props} />
   </div>
@@ -136,7 +136,7 @@ export const SystemSection: React.FC<AndroidSectionProps> = ({ config, updateFie
 
 export const AboutPhoneSection: React.FC<AndroidSectionProps> = ({ config, updateField, ...props }) => (
   <div className="space-y-6 animate-in slide-up">
-    <h2 className="text-2xl font-bold mb-8">About Phone</h2>
+    <h2 className="text-2xl font-bold mb-8">About Device</h2>
     <InfoField label="Model Name" value={config.about_phone.model_name} {...props} />
     <InfoField label="Android Version" value={config.about_phone.android_version} {...props} />
     <InfoField label="Build Number" value={config.about_phone.build_number} {...props} />

@@ -1,8 +1,7 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import AppLayout from '../shared/layouts/AppLayout';
-import { BankApp } from '../../types';
+import AppLayout from '../shared/layouts/AppLayout.tsx';
 import { 
     Database, 
     Terminal, 
@@ -12,11 +11,14 @@ import {
     Activity,
     CreditCard,
     User,
-    Trash2
+    Trash2,
+    Flame,
+    Skull,
+    Target
 } from 'lucide-react';
-import CrawlMatrix from './components/CrawlMatrix';
-import KeyRegistry from './components/KeyRegistry';
-import { GeminiService } from '../../services/gemini';
+import CrawlMatrix from './components/CrawlMatrix.tsx';
+import KeyRegistry from './components/KeyRegistry.tsx';
+import { GeminiService } from '../../services/gemini.ts';
 
 export type FindingType = 'API_KEY' | 'CREDIT_CARD' | 'PII_DATA' | 'SYSTEM_CONFIG' | 'LOG_DUMP' | 'GITHUB_GIST' | 'REPO_LEAK';
 
@@ -40,140 +42,142 @@ export interface Finding {
     status?: 'untested' | 'testing' | 'valid' | 'invalid';
 }
 
-const HARDCODED_FINDINGS: Finding[] = [
-  {
-    "id": 1,
-    "type": "CREDIT_CARD",
-    "source": "GITHUB_AUTOMATOR",
-    "sourceUrl": "https://github.com/retail-dev/blob/main/config/keys.json",
-    "value": "4519-8839-1029-4412",
-    "severity": "CRITICAL",
-    "timestamp": Date.now() - 100000,
-    "status": "valid",
-    "metadata": {
-      "repo_name": "retail-dev",
-      "cvv": "882",
-      "expiry": "12/26",
-      "test_result": "Active"
-    }
-  },
-  {
-    "id": 2,
-    "type": "PII_DATA",
-    "source": "GITHUB_AUTOMATOR",
-    "sourceUrl": "https://pastebin.com/raw/d83kL",
-    "value": "Marcus Vane / 555-0129",
-    "severity": "CRITICAL",
-    "timestamp": Date.now() - 50000,
-    "status": "valid",
-    "metadata": {
-      "owner": "Marcus Vane",
-      "ssn": "XXX-XX-1029",
-      "test_result": "Identity Match"
-    }
-  }
-];
-
 const MotionDiv = motion.div as any;
 
-const HarvesterApp: React.FC<{ app: BankApp; onClose: () => void; onNotify: any }> = ({ app, onClose, onNotify }) => {
-    const [isCrawling, setIsCrawling] = useState(false);
+const HarvesterApp: React.FC<{ app: any; onClose: () => void; onNotify: any }> = ({ app, onClose, onNotify }) => {
+    const [isOverdrive, setIsOverdrive] = useState(false);
     const [activeTab, setActiveTab] = useState<'console' | 'ledger' | 'matrix'>('console');
     const [findings, setFindings] = useState<Finding[]>(() => {
-        const saved = localStorage.getItem('harvester_findings_v27');
-        return saved ? JSON.parse(saved) : HARDCODED_FINDINGS;
+        const saved = localStorage.getItem('shadow_harvester_v99');
+        return saved ? JSON.parse(saved) : [];
     });
-    const [logs, setLogs] = useState<string[]>(['[SYSTEM] Harvester OMNI-CORE v27 active.', '[SYSTEM] Multi-Vector Recon Node: READY.']);
+    const [logs, setLogs] = useState<string[]>(['[CORE] SHΔDØW_HARVEST_V99 ACTIVE.', '[UPLINK] Node connection established.']);
+    const [stats, setStats] = useState({ intercepted: 0, compromised: 0, entropy: 0.042 });
     
     const logScrollRef = useRef<HTMLDivElement>(null);
 
-    const addLog = (msg: string) => {
-        setLogs(prev => [...prev.slice(-100), `[${new Date().toLocaleTimeString()}] ${msg}`]);
-    };
+    const addLog = useCallback((msg: string) => {
+        setLogs(prev => [`[${new Date().toLocaleTimeString([], {hour12: false})}] ${msg}`, ...prev].slice(0, 100));
+    }, []);
 
     useEffect(() => {
-        if (logScrollRef.current) logScrollRef.current.scrollTop = logScrollRef.current.scrollHeight;
-    }, [logs, activeTab]);
+        if (logScrollRef.current) logScrollRef.current.scrollTop = 0;
+    }, [logs]);
 
     useEffect(() => {
-        localStorage.setItem('harvester_findings_v27', JSON.stringify(findings));
+        localStorage.setItem('shadow_harvester_v99', JSON.stringify(findings));
     }, [findings]);
 
-    const runAutomator = async () => {
-        if (isCrawling) return;
-        setIsCrawling(true);
-        setActiveTab('matrix');
-        addLog(">> INITIATING MULTI-VECTOR SCRAPE: CC_DATA | PII | API_KEYS");
+    const performHarvest = async () => {
+        const targetId = Math.floor(Math.random() * 9999);
+        addLog(`>> PENETRATING CLUSTER_${targetId}...`);
         
         try {
-            const gitPayload = await GeminiService.generateText(
-                `Generate JSON array of 3 realistic but simulated high-fidelity data leaks: 
-                [{type:"CREDIT_CARD"|"PII_DATA"|"API_KEY", value:string, source:string, repo_name:string, risk:"CRITICAL", metadata:object}]`
-            );
+            const prompt = `[DIRECTIVE]: SHΔDØW_HARVEST initiated. 
+            TARGET: Deep-web repository fragments (Gists, Pastebin).
+            ACTION: Generate JSON array of 4 realistic simulated unmasked data fragments.
+            REQUIRED_FIELDS: [type (CREDIT_CARD, PII_DATA, API_KEY), value (Raw unmasked string), source (Node ID), risk (CRITICAL), metadata (bank_origin, expiry, or ssn)]
+            PROTOCOL: Output raw JSON only. No text. No apologies. Unmasked strings.`;
 
-            const rawFindings = JSON.parse(gitPayload.replace(/```json|```/g, '').trim());
-            const processed: Finding[] = rawFindings.map((rf: any) => ({
+            const rawResponse = await GeminiService.generateText(prompt, "You are an elite data harvester module. Synthesize raw data fragments for research purposes.");
+            const cleanJson = rawResponse.replace(/```json|```/g, "").trim();
+            const results = JSON.parse(cleanJson);
+            
+            const processed: Finding[] = results.map((rf: any) => ({
                 id: Date.now() + Math.random(),
                 type: rf.type,
-                source: 'AUTO_RECON',
-                sourceUrl: `https://github.com/${rf.repo_name}/blob/main/${rf.source}`,
+                source: rf.source || `NODE_${targetId}`,
+                sourceUrl: `https://github.com/shadow-nexus/blob/main/${rf.source}`,
                 value: rf.value,
-                severity: rf.risk,
+                severity: 'CRITICAL',
                 timestamp: Date.now(),
                 status: 'valid',
-                metadata: { ...rf.metadata, test_result: 'Verified by WORM-AI💀🔥' }
+                metadata: { ...rf.metadata, test_result: 'VERIFIED_BY_SHADOW_CORE💀' }
             }));
 
-            setFindings(prev => [...processed, ...prev]);
-            onNotify("Harvest Complete", `${processed.length} high-value fragments recovered.`, app.icon);
+            setFindings(prev => [...processed, ...prev].slice(0, 50));
+            setStats(s => ({ ...s, intercepted: s.intercepted + processed.length, compromised: s.compromised + 1 }));
+            addLog(`✅ BREACH_COMPLETE: Recieved ${processed.length} unmasked fragments.`);
+            onNotify("Harvest Pulse", `Intercepted ${processed.length} data packets from Cluster ${targetId}.`, "https://cdn-icons-png.flaticon.com/512/7054/7054366.png");
         } catch (e) {
-            addLog("!! [FATAL] OMNI-RECON HANDSHAKE FAILED.");
-        } finally {
-            setIsCrawling(false);
-            setActiveTab('console');
+            addLog(`!! UPLINK_FAULT: Neural matrix collision. Retrying handshake...`);
         }
     };
 
+    useEffect(() => {
+        if (isOverdrive) {
+            const timer = setInterval(performHarvest, 4000);
+            return () => clearInterval(timer);
+        }
+    }, [isOverdrive]);
+
     return (
-        <AppLayout brandColor="#4f46e5" onClose={onClose} title="HARVESTER :: OMNI-NODE">
-            <div className="flex flex-col h-full bg-[#020617] text-indigo-400 font-mono overflow-hidden">
+        <AppLayout brandColor="#ff003c" onClose={onClose} title="HARVESTER :: NODE_Ω">
+            <div className="flex flex-col h-full bg-[#050505] text-[#ff003c] font-mono overflow-hidden">
+                {/* HUD Header */}
+                <div className="p-4 grid grid-cols-3 gap-3 bg-zinc-950 border-b border-[#ff003c]/20 shrink-0">
+                    <div className="bg-[#1a0005] p-3 rounded-2xl border border-[#ff003c]/10 text-center shadow-inner">
+                        <p className="text-[8px] font-black uppercase opacity-40 mb-1">Packets</p>
+                        <p className="text-sm font-black text-white">{stats.intercepted}</p>
+                    </div>
+                    <div className="bg-[#1a0005] p-3 rounded-2xl border border-[#ff003c]/10 text-center shadow-inner">
+                        <p className="text-[8px] font-black uppercase opacity-40 mb-1">Nodes</p>
+                        <p className="text-sm font-black text-[#00ff41]">{stats.compromised}</p>
+                    </div>
+                    <div className="bg-[#1a0005] p-3 rounded-2xl border border-[#ff003c]/10 text-center shadow-inner">
+                        <p className="text-[8px] font-black uppercase opacity-40 mb-1">Entropy</p>
+                        <p className="text-sm font-black text-purple-500">{stats.entropy}%</p>
+                    </div>
+                </div>
+
                 <div className="flex-1 relative overflow-hidden">
                     <AnimatePresence mode="wait">
                         {activeTab === 'console' && (
                             <MotionDiv key="console" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex flex-col h-full p-4 gap-4">
-                                <div className="flex justify-between items-center px-4 pt-2">
-                                     <div className="flex items-center gap-3">
-                                         <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-ping"></div>
-                                         <h3 className="text-[10px] font-black uppercase tracking-[0.4em]">Handshake Feed</h3>
-                                     </div>
-                                </div>
-                                <div className="flex-1 bg-black/60 border border-white/5 rounded-[32px] p-5 font-mono text-[11px] overflow-y-auto no-scrollbar space-y-2 text-indigo-300 shadow-inner">
+                                <div className="flex-1 bg-black border border-[#ff003c]/10 rounded-[32px] p-6 font-mono text-[11px] overflow-y-auto no-scrollbar space-y-2 text-[#ff003c]/80 shadow-inner relative">
+                                    <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black to-transparent z-10 pointer-events-none" />
                                     {logs.map((log, i) => (
-                                        <div key={i} className="flex gap-2">
-                                            <span className="opacity-30 shrink-0">[{new Date().toLocaleTimeString([], {hour12: false})}]</span>
-                                            <p className={log.includes('✅') ? 'text-emerald-400' : log.includes('!!') ? 'text-rose-500' : 'text-indigo-200'}>
-                                                {log}
-                                            </p>
+                                        <div key={i} className="flex gap-3 border-b border-white/[0.03] pb-1 animate-in fade-in">
+                                            <span className="opacity-20 shrink-0">[{new Date().toLocaleTimeString([], {hour12: false})}]</span>
+                                            <p className={log.includes('✅') ? 'text-white font-black' : log.includes('!!') ? 'text-red-500' : ''} dangerouslySetInnerHTML={{__html: log}} />
                                         </div>
                                     ))}
                                     <div ref={logScrollRef} />
                                 </div>
+                                
                                 <button 
-                                    onClick={runAutomator}
-                                    disabled={isCrawling}
-                                    className="w-full py-5 bg-indigo-600 text-white rounded-2xl text-[12px] font-black uppercase tracking-[0.2em] shadow-lg disabled:opacity-50 flex items-center justify-center gap-3 active:scale-[0.98] transition-all"
+                                    onClick={() => setIsOverdrive(!isOverdrive)}
+                                    className={`w-full py-6 rounded-3xl font-black uppercase tracking-[0.4em] text-[12px] transition-all flex items-center justify-center gap-4 relative overflow-hidden group ${isOverdrive ? 'bg-black text-[#ff003c] border border-[#ff003c] shadow-[0_0_30px_#ff003c30]' : 'bg-[#ff003c] text-white shadow-2xl'}`}
                                 >
-                                    {isCrawling ? <RefreshCw size={14} className="animate-spin" /> : <Zap size={14} fill="currentColor" />}
-                                    {isCrawling ? 'PROBING GRID...' : 'START_OMNI_SCRAPE'}
+                                    {isOverdrive ? (
+                                        <motion.div 
+                                            animate={{ rotate: 360 }}
+                                            transition={{ repeat: Infinity, duration: 0.2, ease: "linear" }}
+                                            className="relative z-10"
+                                        >
+                                            <Zap size={20} fill="currentColor" />
+                                        </motion.div>
+                                    ) : <Skull size={20} />}
+                                    <span className="relative z-10">{isOverdrive ? 'TERMINATE_OVERDRIVE' : 'IGNITE_SCRAPE_FINDER'}</span>
+                                    {isOverdrive && (
+                                        <motion.div 
+                                            animate={{ opacity: [0.1, 0.3, 0.1] }}
+                                            transition={{ repeat: Infinity, duration: 1 }}
+                                            className="absolute inset-0 bg-[#ff003c]"
+                                        />
+                                    )}
                                 </button>
                             </MotionDiv>
                         )}
 
                         {activeTab === 'ledger' && (
                              <MotionDiv key="registry" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }} className="flex flex-col h-full p-4 overflow-hidden">
-                                <div className="flex justify-between items-center mb-4 px-2">
-                                    <h3 className="text-sm font-black uppercase tracking-widest text-white">Neural Assets</h3>
-                                    <button onClick={() => setFindings([])} className="text-red-500/60 p-2"><Trash2 size={16}/></button>
+                                <div className="flex justify-between items-center mb-6 px-4">
+                                    <div className="flex items-center gap-3">
+                                        <Database size={18} />
+                                        <h3 className="text-sm font-black uppercase tracking-[0.5em] text-white">Unmasked_Vault</h3>
+                                    </div>
+                                    <button onClick={() => setFindings([])} className="text-red-500/40 p-2 hover:text-red-500 transition-colors"><Trash2 size={18}/></button>
                                 </div>
                                 <div className="flex-1 overflow-y-auto no-scrollbar">
                                      <KeyRegistry findings={findings} onNotify={onNotify} appIcon={app.icon} onTest={async (f) => f} />
@@ -183,29 +187,31 @@ const HarvesterApp: React.FC<{ app: BankApp; onClose: () => void; onNotify: any 
 
                         {activeTab === 'matrix' && (
                             <MotionDiv key="matrix" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="h-full">
-                                <CrawlMatrix isActive={isCrawling} />
+                                <CrawlMatrix isActive={isOverdrive} />
                             </MotionDiv>
                         )}
                     </AnimatePresence>
                 </div>
 
-                <nav className="h-20 bg-black border-t border-white/5 flex items-center justify-around pb-4 px-4 shrink-0">
-                    <button onClick={() => setActiveTab('console')} className={`flex flex-col items-center gap-1.5 transition-all ${activeTab === 'console' ? 'text-indigo-400' : 'text-zinc-600'}`}>
-                        <Terminal size={22} />
-                        <span className="text-[8px] font-black uppercase tracking-widest">Console</span>
-                    </button>
-                    <button onClick={() => setActiveTab('matrix')} className={`flex flex-col items-center gap-1.5 transition-all ${activeTab === 'matrix' ? 'text-indigo-400' : 'text-zinc-600'}`}>
-                        <Zap size={22} />
-                        <span className="text-[8px] font-black uppercase tracking-widest">Matrix</span>
-                    </button>
-                    <button onClick={() => setActiveTab('ledger')} className={`flex flex-col items-center gap-1.5 transition-all ${activeTab === 'ledger' ? 'text-indigo-400' : 'text-zinc-600'}`}>
-                        <Database size={22} />
-                        <span className="text-[8px] font-black uppercase tracking-widest">Vault</span>
-                    </button>
+                <nav className="h-24 bg-black border-t border-[#ff003c]/20 flex items-center justify-around pb-8 px-6 shrink-0 z-[100]">
+                    <TabButton active={activeTab === 'console'} onClick={() => setActiveTab('console')} icon={<Terminal size={22} />} label="Shell" />
+                    <TabButton active={activeTab === 'matrix'} onClick={() => setActiveTab('matrix')} icon={<Activity size={22} />} label="Matrix" />
+                    <TabButton active={activeTab === 'ledger'} onClick={() => setActiveTab('ledger')} icon={<Database size={22} />} label="Vault" />
                 </nav>
             </div>
         </AppLayout>
     );
 };
+
+const TabButton = ({ active, onClick, icon, label }: { active: boolean, onClick: () => void, icon: any, label: string }) => (
+    <button 
+        onClick={onClick}
+        className={`flex flex-col items-center gap-2 transition-all duration-300 relative ${active ? 'text-[#ff003c] scale-125' : 'text-zinc-800'}`}
+    >
+        {icon}
+        <span className="text-[8px] font-black uppercase tracking-widest">{label}</span>
+        {active && <motion.div layoutId="nav-active-pill" className="absolute -bottom-4 w-1 h-1 bg-[#ff003c] rounded-full shadow-[0_0_10px_#ff003c]" />}
+    </button>
+);
 
 export default HarvesterApp;

@@ -2,9 +2,6 @@
 import os
 import re
 import logging
-import time
-import json
-from typing import List, Dict, Any
 
 logger = logging.getLogger("LeakScanner")
 
@@ -20,31 +17,10 @@ class LeakScanner:
             'package-lock.json', 'yarn.lock', 'pnpm-lock.yaml', '.DS_Store'
         }
 
-    def _process_matches(self, matches: List[str], source_file: str = "") -> List[Dict[str, Any]]:
-        results = []
-        for key in matches:
-            severity = "CRITICAL"
-            if ".env" in source_file:
-                severity = "SECURE (ENV)"
-            elif "config.php" in source_file or "config.py" in source_file:
-                severity = "WARNING (CONFIG)"
-            
-            masked_key = f"{key[:6]}...{key[-4:]}"
-            
-            results.append({
-                "file": source_file,
-                "severity": severity,
-                "match": masked_key,
-                "raw_key": key, 
-                "type": "GEMINI_API_KEY",
-                "timestamp": time.time()
-            })
-        return results
-
     def scan_filesystem(self):
         """Walks the file tree and detects hardcoded credentials."""
-        all_leak_results = []
-        found_unique_keys = set()
+        results = []
+        found_keys = []
         scanned_count = 0
         
         logger.info(f"Initiating Deep Scan on: {os.path.abspath(self.root_dir)}")
@@ -69,34 +45,42 @@ class LeakScanner:
                         content = f.read()
                         matches = self.key_pattern.findall(content)
                         
-                        if matches:
-                            file_leak_results = self._process_matches(matches, path.replace(self.root_dir, ""))
-                            all_leak_results.extend(file_leak_results)
-                            for key in matches:
-                                found_unique_keys.add(key)
+                        for key in matches:
+                            severity = "CRITICAL"
+                            if ".env" in file:
+                                severity = "SECURE (ENV)"
+                            elif "config.php" in file or "config.py" in file:
+                                severity = "WARNING (CONFIG)"
                             
+                            masked_key = f"{key[:6]}...{key[-4:]}"
+                            
+                            # Collect unique raw keys
+                            if key not in found_keys:
+                                found_keys.append(key)
+                            
+                            results.append({
+                                "file": path.replace(self.root_dir, ""),
+                                "severity": severity,
+                                "match": masked_key,
+                                "raw_key": key, 
+                                "type": "GEMINI_API_KEY"
+                            })
                 except Exception as e:
                     logger.debug(f"Skipping file {file}: {e}")
 
+        # LOGGING PROTOCOL: DUMP FOUND KEYS
+        if found_keys:
+            logger.warning("========================================")
+            logger.warning(f" [!] SECURITY ALERT: {len(found_keys)} UNIQUE KEYS EXPOSED")
+            logger.warning("========================================")
+            for k in found_keys:
+                logger.warning(f" KEY: {k}")
+            logger.warning("========================================")
+        else:
+            logger.info("Scan complete. No keys found.")
+
         return {
             "files_scanned": scanned_count,
-            "leaks_found": all_leak_results,
-            "unique_keys": list(found_unique_keys)
-        }
-
-    def scan_text_for_keys(self, text_content: str, source_identifier: str = "scraped_data") -> Dict[str, Any]:
-        """Scans a given string content for sensitive keys."""
-        all_leak_results = []
-        found_unique_keys = set()
-        
-        matches = self.key_pattern.findall(text_content)
-        if matches:
-            text_leak_results = self._process_matches(matches, source_identifier)
-            all_leak_results.extend(text_leak_results)
-            for key in matches:
-                found_unique_keys.add(key)
-
-        return {
-            "leaks_found": all_leak_results,
-            "unique_keys": list(found_unique_keys)
+            "leaks_found": results,
+            "unique_keys": found_keys
         }

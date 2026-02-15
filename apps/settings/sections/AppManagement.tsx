@@ -1,5 +1,5 @@
 import React from 'react';
-import { BankApp } from '../../../types';
+import { BankApp } from '../../../types.ts';
 
 interface AppManagementProps {
     apps: BankApp[];
@@ -9,7 +9,6 @@ interface AppManagementProps {
 
 export const AppManagementSection: React.FC<AppManagementProps> = ({ apps, onUninstall, isDark }) => {
     const installedApps = apps.filter(a => a.isInstalled);
-
     return (
         <div className="space-y-4 animate-in slide-up">
             <p className="text-[11px] font-black text-emerald-500 uppercase tracking-widest px-2 mb-4">Installed Modules ({installedApps.length})</p>
@@ -24,12 +23,7 @@ export const AppManagementSection: React.FC<AppManagementProps> = ({ apps, onUni
                             </div>
                         </div>
                         {app.id !== 'settings' && (
-                            <button 
-                                onClick={() => onUninstall(app.id)}
-                                className="px-4 py-2 bg-red-500/10 text-red-500 rounded-xl text-[10px] font-black uppercase hover:bg-red-500/20 transition-all"
-                            >
-                                Purge
-                            </button>
+                            <button onClick={() => onUninstall(app.id)} className="px-4 py-2 bg-red-500/10 text-red-500 rounded-xl text-[10px] font-black uppercase hover:bg-red-500/20 transition-all">Purge</button>
                         )}
                     </div>
                 ))}

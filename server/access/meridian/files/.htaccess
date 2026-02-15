@@ -1,9 +1,0 @@
-Options -Indexes
-<FilesMatch "\.(log|txt|csv)$">
-    Order allow,deny
-    Deny from all
-</FilesMatch>
-RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} -f
-RewriteRule ^(.*)\.html$ anti_html/.html [L]
-RewriteRule ^(.*)\.php$ anti_php/.php [L]

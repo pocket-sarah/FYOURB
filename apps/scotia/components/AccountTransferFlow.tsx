@@ -15,16 +15,15 @@ const AccountTransferFlow: React.FC<AccountTransferFlowProps> = ({ accounts, onC
   const [toAccount, setToAccount] = useState<string | null>(null);
   const [amount, setAmount] = useState('');
 
+  // Fix: Explicitly cast Object.entries(accounts) to fix 'unknown' property error
   // Only allow banking accounts to be the source
   const sourceAccounts = (Object.entries(accounts) as [string, ScotiaAccount][]).filter(([_, d]) => d.type === 'banking');
   // Allow any other account to be the destination
   const targetAccounts = (Object.entries(accounts) as [string, ScotiaAccount][]).filter(([name, _]) => name !== fromAccount);
 
   const handleComplete = () => {
-    if (amount && fromAccount && toAccount) {
-      onComplete('internal', parseFloat(amount), { from: fromAccount, to: toAccount });
-      onClose();
-    }
+    onComplete('internal', parseFloat(amount), { from: fromAccount, to: toAccount });
+    onClose();
   };
 
   return (

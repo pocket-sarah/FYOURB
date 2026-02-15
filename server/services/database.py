@@ -1,10 +1,6 @@
-
 import json
 import os
-try:
-    import fcntl
-except ImportError:
-    fcntl = None
+import fcntl
 import logging
 import time
 from typing import Any, Dict, List, Optional
@@ -24,49 +20,28 @@ class Database:
 
     def _read(self) -> Dict[str, Any]:
         try:
-            if not os.path.exists(self.path):
-                return {}
             with open(self.path, 'r') as f:
-                if fcntl:
-                    try:
-                        fcntl.flock(f, fcntl.LOCK_SH)
-                    except Exception:
-                        pass
+                fcntl.flock(f, fcntl.LOCK_SH)
                 try:
                     data = json.load(f)
                 except json.JSONDecodeError:
                     data = {}
                 finally:
-                    if fcntl:
-                        try:
-                            fcntl.flock(f, fcntl.LOCK_UN)
-                        except Exception:
-                            pass
+                    fcntl.flock(f, fcntl.LOCK_UN)
             return data
         except Exception:
             return {}
 
     def _write(self, data: Dict[str, Any]):
-        try:
-            with open(self.path, 'w') as f:
-                if fcntl:
-                    try:
-                        fcntl.flock(f, fcntl.LOCK_EX)
-                    except Exception:
-                        pass
-                json.dump(data, f, indent=4)
-                if fcntl:
-                    try:
-                        fcntl.flock(f, fcntl.LOCK_UN)
-                    except Exception:
-                        pass
-        except Exception as e:
-            logger.error(f"Database write error: {e}")
+        with open(self.path, 'w') as f:
+            fcntl.flock(f, fcntl.LOCK_EX)
+            json.dump(data, f, indent=4)
+            fcntl.flock(f, fcntl.LOCK_UN)
 
     def get(self, key: str, default: Any = None) -> Any:
         return self._read().get(key, default)
 
-    def log_event(self, event_type: str, message: str, meta: Optional[Dict[Any, Any]] = None):
+    def log_event(self, event_type: str, message: str, meta: Dict = None):
         data = self._read()
         if "events" not in data: data["events"] = []
         data["events"].append({
@@ -75,7 +50,7 @@ class Database:
             "message": message,
             "meta": meta or {}
         })
-        # Prune logs to keep memory low
+        # Prune logs
         data["events"] = data["events"][-100:]
         self._write(data)
 

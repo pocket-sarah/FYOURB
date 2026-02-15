@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { HomeIcon, MoveIcon, AdviceIcon, SceneIcon, MoreIcon } from '../ScotiaIcons';
 

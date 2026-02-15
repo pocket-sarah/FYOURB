@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { BankApp } from '../../types';
 
@@ -9,7 +10,7 @@ interface NotesAppProps {
 
 const NotesApp: React.FC<NotesAppProps> = ({ onClose }) => {
   const [notes, setNotes] = useState(() => {
-      const saved = localStorage.getItem('rros_notes_v2');
+      const saved = localStorage.getItem('rbos_notes_v2');
       return saved ? JSON.parse(saved) : [
         { id: 1, title: 'Project Singularity', body: 'Modularize all banking uplinks by Q4.', date: 'Today' },
         { id: 2, title: 'Security Protocol', body: 'Cycle Gemini API keys every 24 hours.', date: 'Yesterday' },
@@ -17,7 +18,7 @@ const NotesApp: React.FC<NotesAppProps> = ({ onClose }) => {
   });
 
   useEffect(() => {
-      localStorage.setItem('rros_notes_v2', JSON.stringify(notes));
+      localStorage.setItem('rbos_notes_v2', JSON.stringify(notes));
   }, [notes]);
 
   const addNote = () => {

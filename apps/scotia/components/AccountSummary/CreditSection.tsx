@@ -23,13 +23,13 @@ const CreditSection: React.FC<CreditSectionProps> = ({ entries, isExpanded, onTo
                 {entries.map(([name, acc]) => (
                     <button key={name} onClick={() => onSelect(name)} className="w-full p-5 flex flex-col items-start active:bg-white/5 transition-all text-left">
                         <p className="text-white font-bold text-[15px]">{name}</p>
-                        <p className="text-zinc-500 font-medium text-[14px] mt-0.5">${acc.balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                        <p className="text-zinc-500 font-medium text-[14px] mt-0.5">${acc.balance.toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
                     </button>
                 ))}
             </div>
             <div className="p-4 bg-white/5 flex justify-between items-center border-t border-white/5">
                 <span className="text-zinc-400 font-bold text-[11px] uppercase tracking-widest">Total Credit</span>
-                <span className="text-white font-bold text-[13px]">${total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                <span className="text-white font-bold text-[13px]">${total.toLocaleString('en-US', { minimumFractionDigits: 2 })}</span>
             </div>
         </div>
     </div>

@@ -1,0 +1,16 @@
+{
+  "name": "RBOS OS :: SHΔDØW CORE",
+  "description": "Unified Intelligence Core. Shadow Mode V99 :: Node Ω Active.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ],
+  "expansion_ports": [
+    "SECURE_RELAY",
+    "SIGNAL_ANALYTICS",
+    "NEURAL_HANDSHAKE",
+    "SAT_UPLINK",
+    "CORE_LEDGER"
+  ]
+}

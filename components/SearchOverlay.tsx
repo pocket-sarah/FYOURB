@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BankApp } from '../types';
@@ -9,10 +10,12 @@ interface SearchOverlayProps {
     onOpenApp: (id: string) => void;
 }
 
+// Fix: Use casted any for motion component to bypass intrinsic property errors
+const MotionDiv = motion.div as any;
+
 const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose, apps, onOpenApp }) => {
     const [query, setQuery] = useState('');
     const inputRef = useRef<HTMLInputElement>(null);
-    const MotionDiv = motion.div as any;
 
     useEffect(() => {
         if (isOpen) setTimeout(() => inputRef.current?.focus(), 100);
@@ -33,6 +36,7 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose, apps, on
 
     return (
         <AnimatePresence>
+            {/* Fix: Use MotionDiv */}
             <MotionDiv 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -40,6 +44,7 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose, apps, on
                 className="fixed inset-0 z-[1000] bg-black/60 backdrop-blur-2xl p-6 pt-24"
                 onClick={onClose}
             >
+                {/* Fix: Use MotionDiv */}
                 <MotionDiv 
                     initial={{ y: 20, scale: 0.95 }}
                     animate={{ y: 0, scale: 1 }}

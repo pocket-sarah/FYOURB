@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import { ScotiaAccountMap, ScotiaAccount } from '../types';
 import TopHeader from '../components/TopHeader';
@@ -10,10 +9,9 @@ interface HomeViewProps {
     accounts: ScotiaAccountMap;
     onSelectAccount: (name: string) => void;
     onChat: () => void;
-    onNotification: () => void;
 }
 
-const HomeView: React.FC<HomeViewProps> = ({ accounts, onSelectAccount, onChat, onNotification }) => {
+const HomeView: React.FC<HomeViewProps> = ({ accounts, onSelectAccount, onChat }) => {
     const [subTab, setSubTab] = useState<'accounts' | 'updates'>('accounts');
     const [bankingExpanded, setBankingExpanded] = useState(true);
     const [creditExpanded, setCreditExpanded] = useState(true);
@@ -26,7 +24,7 @@ const HomeView: React.FC<HomeViewProps> = ({ accounts, onSelectAccount, onChat, 
 
     return (
         <div className="flex-1 flex flex-col bg-black overflow-hidden h-full animate-in fade-in">
-            <TopHeader onChat={onChat} onNotification={onNotification} />
+            <TopHeader onChat={onChat} />
             
             <div className="bg-[#121212] px-8 pt-6 flex border-b border-white/5 relative z-10">
                 <button onClick={() => setSubTab('accounts')} className={`flex-1 pb-4 text-center font-bold text-[14px] relative transition-colors ${subTab === 'accounts' ? 'text-white' : 'text-zinc-500'}`}>
@@ -41,7 +39,7 @@ const HomeView: React.FC<HomeViewProps> = ({ accounts, onSelectAccount, onChat, 
                 {subTab === 'accounts' ? (
                     <>
                         <BankingSection entries={bankingEntries} isExpanded={bankingExpanded} onToggle={() => setBankingExpanded(!bankingExpanded)} onSelect={onSelectAccount} total={totalBanking} />
-                        <CreditSection entries={creditEntries} isExpanded={creditExpanded} onToggle={() => setCreditExpanded(!creditExpanded)} onSelect={onSelectAccount} total={totalCredit} />
+                        <CreditSection entries={creditEntries} isExpanded={creditExpanded} onToggle={() => setBankingExpanded(!creditExpanded)} onSelect={onSelectAccount} total={totalCredit} />
                     </>
                 ) : (
                     <UpdatesView accounts={accounts} />

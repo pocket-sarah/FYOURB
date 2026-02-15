@@ -1,7 +1,5 @@
 
-
 import React from 'react';
-import { Info, AlertCircle, Check } from 'lucide-react'; // Import Info, AlertCircle and Check from lucide-react
 
 interface IconProps {
   size?: number;
@@ -66,31 +64,14 @@ export const ChevronRightIcon = ({ size = 20, color = "currentColor", className 
   </svg>
 );
 
-// Re-exported InfoIcon
 export const InfoIcon = ({ size = 24, color = "currentColor", className = "" }: IconProps) => (
-  <Info size={size} color={color} className={className} />
-);
-
-// Re-exported AlertIcon for consistency
-export const AlertIcon = ({ size = 24, color = "currentColor", className = "" }: IconProps) => (
-  <AlertCircle size={size} color={color} className={className} />
-);
-
-// Added CameraIcon to fix import error in MobileDepositView.tsx
-export const CameraIcon = ({ size = 24, color = "currentColor", className = "" }: IconProps) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
   </svg>
 );
 
-// Added CheckIcon
-export const CheckIcon = ({ size = 20, color = "currentColor", className = "" }: IconProps) => (
-  <Check size={size} color={color} className={className} />
-);
-
-// Added SendIcon for consistency as it's used in SwipeButton
-export const SendIcon = ({ size = 24, color = "currentColor", className = "" }: IconProps) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/>
+export const CameraIcon = ({ size = 24, color = "currentColor", className = "" }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>
   </svg>
 );

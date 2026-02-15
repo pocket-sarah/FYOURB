@@ -1,6 +1,4 @@
-
 import React from 'react';
-import { ChevronRightIcon } from '../../TDIcons'; // Using ChevronRightIcon for consistency
 
 interface SelectionCardProps {
     label: string;
@@ -11,20 +9,20 @@ interface SelectionCardProps {
 }
 
 const SelectionCard: React.FC<SelectionCardProps> = ({ label, value, subtext, onClick, empty = false }) => (
-    <div onClick={onClick} className="bg-white p-5 rounded-lg shadow-sm border border-gray-200 flex justify-between items-center active:bg-gray-50 transition-all cursor-pointer">
+    <div onClick={onClick} className="py-5 flex justify-between items-center active:bg-gray-50 transition-all cursor-pointer">
         <div className="flex-1 min-w-0">
-            <p className="text-gray-500 font-bold text-xs uppercase mb-1">{label}</p>
+            <p className="text-gray-400 font-bold text-[10px] uppercase tracking-widest mb-1">{label}</p>
             {empty ? (
-                <p className="text-gray-400 text-[15px] font-semibold">Select {label.toLowerCase()}</p>
+                <p className="text-gray-300 text-[15px] font-semibold italic">Select {label.toLowerCase()}</p>
             ) : (
                 <>
-                    <p className={`font-bold text-[16px] tracking-tight truncate ${value ? 'text-gray-800' : 'text-gray-400'}`}>{value}</p>
-                    {subtext && <p className="text-gray-500 text-xs">{subtext}</p>}
+                    <p className={`font-bold text-[16px] tracking-tight truncate ${value ? 'text-gray-800' : 'text-gray-300'}`}>{value}</p>
+                    {subtext && <p className="text-gray-400 text-[12px] font-semibold">{subtext}</p>}
                 </>
             )}
         </div>
         <div className="p-1 rounded-sm ml-4">
-            <ChevronRightIcon color="#999" size={20} />
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#008A00" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
         </div>
     </div>
 );

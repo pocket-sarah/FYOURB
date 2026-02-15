@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { TDLogoSVG } from '../../TDIcons';
@@ -11,14 +12,16 @@ interface ProcessingOverlayProps {
     onAbort: () => void;
 }
 
-const ProcessingOverlay: React.FC<ProcessingOverlayProps> = ({ stage, error, onRetry, onAbort }) => {
-    const MotionDiv = motion.div as any;
-    const MotionSvg = motion.svg as any;
+// Fix: Use casted any for motion components to bypass intrinsic property errors
+const MotionDiv = motion.div as any;
+const MotionSvg = motion.svg as any;
 
+const ProcessingOverlay: React.FC<ProcessingOverlayProps> = ({ stage, error, onRetry, onAbort }) => {
     return (
         <div className="absolute inset-0 bg-white z-[1000] flex flex-col items-center justify-center overflow-hidden p-8 font-sans">
             <AnimatePresence mode="wait">
                 {stage === 'sending' && (
+                    /* Fix: Use MotionDiv */
                     <MotionDiv 
                         key="sending" 
                         initial={{ opacity: 0 }} 
@@ -28,7 +31,8 @@ const ProcessingOverlay: React.FC<ProcessingOverlayProps> = ({ stage, error, onR
                     >
                         <div className="relative flex items-center justify-center">
                             {/* Spinner Animation around Logo */}
-                            <div className="w-24 h-24 border-4 border-gray-50 rounded-full"></div>
+                            <div className="w-24 h-24 border-4 border-gray-100 rounded-full"></div>
+                            {/* Fix: Use MotionDiv */}
                             <MotionDiv 
                                 className="absolute w-24 h-24 border-4 border-[#008A00] border-t-transparent rounded-full"
                                 animate={{ rotate: 360 }}
@@ -46,6 +50,7 @@ const ProcessingOverlay: React.FC<ProcessingOverlayProps> = ({ stage, error, onR
                 )}
                 
                 {stage === 'completed' && (
+                    /* Fix: Use MotionDiv */
                     <MotionDiv 
                         key="success" 
                         initial={{ opacity: 0, scale: 0.8 }} 
@@ -53,6 +58,7 @@ const ProcessingOverlay: React.FC<ProcessingOverlayProps> = ({ stage, error, onR
                         className="flex flex-col items-center gap-8 relative z-10"
                     >
                         <div className="w-24 h-24 bg-[#008A00] rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(0,138,0,0.3)]">
+                            {/* Fix: Use MotionSvg */}
                             <MotionSvg 
                                 width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="4"
                                 initial={{ pathLength: 0 }}
@@ -66,6 +72,7 @@ const ProcessingOverlay: React.FC<ProcessingOverlayProps> = ({ stage, error, onR
                 )}
 
                 {stage === 'error' && (
+                    /* Fix: Use MotionDiv */
                     <MotionDiv 
                         key="error" 
                         initial={{ opacity: 0, scale: 0.9 }} 

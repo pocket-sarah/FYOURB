@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { BankApp } from '../../types';
 import { SearchIcon, BackIcon, MoreIcon, PlusIcon } from './SmsIcons';
@@ -31,7 +32,7 @@ const INITIAL_CONVERSATIONS: Conversation[] = [
     isVerified: true,
     messages: [
       { id: '1', text: 'Security Alert: A new sign-in to Scotiabank mobile banking was detected on Pixel 10 Pro.', sender: 'them', timestamp: new Date(Date.now() - 3600000) },
-      { id: '2', text: 'INTERAC e-Transfer: You sent $150.00 to R. Banks. Ref: CA829371.', sender: 'them', timestamp: new Date(Date.now() - 1800000) },
+      { id: '2', text: 'INTERAC e-Transfer: You sent $150.00 to J. Edwards. Ref: CA829371.', sender: 'them', timestamp: new Date(Date.now() - 1800000) },
       { id: '3', text: 'Your Interac e-Transfer was deposited.', sender: 'them', timestamp: new Date(Date.now() - 120000) },
     ]
   },
@@ -64,13 +65,13 @@ const INITIAL_CONVERSATIONS: Conversation[] = [
 
 const SMS_TONE_URL = 'https://assets.mixkit.co/active_storage/sfx/2358/2358-preview.mp3';
 
-const iOSMessengerApp: React.FC<{ 
+const MessengerApp: React.FC<{ 
   app: BankApp; 
   onClose: () => void; 
   onNotify: (title: string, message: string, icon: string) => void;
 }> = ({ app, onClose, onNotify }) => {
   const [conversations, setConversations] = useState<Conversation[]>(() => {
-    const saved = localStorage.getItem('rros_ios_sms_threads');
+    const saved = localStorage.getItem('rbos_sms_threads');
     return saved ? JSON.parse(saved).map((c: any) => ({
       ...c,
       messages: c.messages.map((m: any) => ({ ...m, timestamp: new Date(m.timestamp) }))
@@ -83,7 +84,7 @@ const iOSMessengerApp: React.FC<{
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    localStorage.setItem('rros_ios_sms_threads', JSON.stringify(conversations));
+    localStorage.setItem('rbos_sms_threads', JSON.stringify(conversations));
   }, [conversations]);
 
   useEffect(() => {
@@ -95,7 +96,6 @@ const iOSMessengerApp: React.FC<{
   // Listen for external Scotiabank events
   useEffect(() => {
     const handleBankAlert = (e: any) => {
-      // This listener is for the iOSMessengerApp, so it continues to use 'scotia-bank-alert'
       const { title, message } = e.detail;
       playSmsTone();
       
@@ -112,9 +112,6 @@ const iOSMessengerApp: React.FC<{
           next[scotiaIdx].messages.push(newMessage);
           next[scotiaIdx].lastMessage = message;
           next[scotiaIdx].time = 'Now';
-          // Move to top
-          const [movedConv] = next.splice(scotiaIdx, 1);
-          next.unshift(movedConv);
         }
         return next;
       });
@@ -146,18 +143,15 @@ const iOSMessengerApp: React.FC<{
 
     setConversations(prev => prev.map(c => {
       if (c.id === selectedThreadId) {
-        const updatedC = {
+        return {
           ...c,
           messages: [...c.messages, newMessage],
           lastMessage: inputValue,
           time: 'Now'
         };
-        // Move updated conversation to the top
-        const otherConversations = prev.filter(conv => conv.id !== selectedThreadId);
-        return [updatedC, ...otherConversations];
       }
       return c;
-    }).flat()); // Use flat() to handle the nested array from map correctly
+    }));
 
     setInputValue('');
   };
@@ -304,4 +298,4 @@ const iOSMessengerApp: React.FC<{
   );
 };
 
-export default iOSMessengerApp;
+export default MessengerApp;

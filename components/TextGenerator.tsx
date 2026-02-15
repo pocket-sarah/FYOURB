@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { GeminiService } from '../services/gemini';
 import { Message } from '../types';
@@ -38,8 +37,9 @@ const TextGenerator: React.FC = () => {
       
       setMessages(prev => [...prev, { id: assistantId, role: 'assistant', content: '', timestamp: Date.now() }]);
 
-      const stream = GeminiService.generateStream(input);
+      const stream = GeminiService.generateTextStream(input);
       for await (const chunk of stream) {
+        // Correct adherence to @google/genai chunk.text property
         assistantContent += chunk;
         setMessages(prev => prev.map(m => m.id === assistantId ? { ...m, content: assistantContent } : m));
       }

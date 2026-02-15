@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { ScotiaAccountMap } from '../../scotia/types';
 import DashboardView from '../components/DashboardView';
@@ -17,17 +16,18 @@ interface HomeViewProps {
 const HomeView: React.FC<HomeViewProps> = (props) => {
     return (
         <div className="flex-1 flex flex-col animate-in fade-in h-full bg-[#f4f7f6]">
-            {/* Header - Updated: No white box, bigger logo */}
-            <div className="bg-[#008A00] pt-14 pb-12 px-6 shrink-0 relative shadow-sm">
+            {/* Simplified Header - No Greeting, No Hamburger */}
+            <div className="bg-[#008A00] pt-14 pb-12 px-6 shrink-0 relative">
                 <div className="flex justify-between items-center relative z-10">
                     <div className="flex items-center gap-3">
-                        {/* Removed white container, scaled up logo */}
-                        <TDLogoSVG size={44} />
-                        <h2 className="text-white font-bold text-xl tracking-tight">TD Canada Trust</h2>
+                        <div className="w-10 h-10 rounded-lg bg-white border border-white/30 flex items-center justify-center overflow-hidden shadow-lg">
+                            <TDLogoSVG size={24} />
+                        </div>
+                        <h2 className="text-white font-bold text-lg tracking-tight">TD Canada Trust</h2>
                     </div>
                     <div className="flex items-center gap-4 text-white">
                         <button className="relative active:scale-90 transition-transform">
-                            <BellIcon size={24} />
+                            <BellIcon size={22} />
                             <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-[#008A00]"></div>
                         </button>
                     </div>

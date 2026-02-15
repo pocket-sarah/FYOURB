@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { ChevronRightIcon, ChevronDownIcon } from '../ScotiaIcons';
 import { ScotiaAccountMap, ScotiaAccount } from '../types';
@@ -121,7 +122,7 @@ const BillPaymentView: React.FC<BillPaymentViewProps> = ({ accounts, onPay }) =>
         )}
 
         {stage === 'confirm' && selectedPayee && (
-            <div className="p-6 flex flex-col flex-1 animate-in slide-up">
+            <div className="flex-1 flex flex-col pt-8 animate-in slide-up">
                 <h3 className="text-white font-bold text-xl mb-8">Confirm Payment</h3>
                 
                 <div className="bg-zinc-900 rounded-[24px] p-6 border border-white/5 space-y-6 mb-8">

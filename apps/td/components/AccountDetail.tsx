@@ -1,9 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BackIcon, InfoIcon, TDLogoSVG } from '../TDIcons';
 import { ScotiaAccount } from '../../scotia/types';
-import { generateTDStatementHTML } from '../utils/TDStatementGenerator';
-import TDStatementOptionsModal from './TDStatementOptionsModal';
-import { AnimatePresence } from 'framer-motion';
 
 interface AccountDetailProps {
   accountName: string;
@@ -12,22 +9,8 @@ interface AccountDetailProps {
 }
 
 const AccountDetail: React.FC<AccountDetailProps> = ({ accountName, data, onBack }) => {
-  const [showStatementModal, setShowStatementModal] = useState(false);
-
-  const handleGenerateStatement = (month: number, year: number) => {
-    setShowStatementModal(false);
-    const html = generateTDStatementHTML(accountName, data, month, year);
-    const win = window.open('', '_blank');
-    if (win) {
-      win.document.write(html);
-      win.document.close();
-    } else {
-      alert("Please allow popups to view the statement.");
-    }
-  };
-
   return (
-    <div className="absolute inset-0 bg-[#F3F3F3] z-[500] flex flex-col animate-in slide-up h-full overflow-hidden font-sans">
+    <div className="absolute inset-0 bg-[#F3F3F3] z-[500] flex flex-col animate-in slide-up h-full overflow-hidden font-sans text-[#333]">
         {/* Dynamic Header - Match Collage */}
         <div className="bg-gradient-to-b from-[#008A00] to-[#54B948] pt-14 pb-12 px-6 shadow-lg shrink-0 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-10 -mt-10 blur-2xl"></div>
@@ -41,7 +24,7 @@ const AccountDetail: React.FC<AccountDetailProps> = ({ accountName, data, onBack
             
             <div className="text-white relative z-10">
                 <p className="text-white/70 text-[11px] font-bold uppercase tracking-[0.15em] mb-1.5">Available Balance</p>
-                <h1 className="text-5xl font-black tracking-tighter mb-8">${data.balance.toLocaleString('en-US', { minimumFractionDigits: 2 })}</h1>
+                <h1 className="text-5xl font-black text-white tracking-tighter mb-8">${data.balance.toLocaleString('en-US', { minimumFractionDigits: 2 })}</h1>
                 
                 <div className="flex justify-between items-end">
                     <div className="space-y-1">
@@ -58,33 +41,8 @@ const AccountDetail: React.FC<AccountDetailProps> = ({ accountName, data, onBack
             </div>
         </div>
 
-        {/* Action Pills Section */}
-        <div className="px-6 -mt-6 relative z-30 grid grid-cols-3 gap-3">
-            <button className="bg-white rounded-xl py-4 flex flex-col items-center justify-center shadow-lg active:scale-95 transition-all border border-gray-100">
-                <div className="w-9 h-9 rounded-full bg-green-50 flex items-center justify-center text-[#008A00] mb-1.5">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
-                </div>
-                <span className="text-gray-900 font-bold text-[10px] uppercase tracking-wider">Send</span>
-            </button>
-            <button className="bg-white rounded-xl py-4 flex flex-col items-center justify-center shadow-lg active:scale-95 transition-all border border-gray-100">
-                <div className="w-9 h-9 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 mb-1.5">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="m7 16-4-4 4-4m10 8 4-4-4-4m-14 4h18"/></svg>
-                </div>
-                <span className="text-gray-900 font-bold text-[10px] uppercase tracking-wider">Move</span>
-            </button>
-            <button 
-                onClick={() => setShowStatementModal(true)}
-                className="bg-white rounded-xl py-4 flex flex-col items-center justify-center shadow-lg active:scale-95 transition-all border border-gray-100"
-            >
-                <div className="w-9 h-9 rounded-full bg-gray-50 flex items-center justify-center text-gray-600 mb-1.5">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-                </div>
-                <span className="text-gray-900 font-bold text-[10px] uppercase tracking-wider">Statements</span>
-            </button>
-        </div>
-
-        <div className="flex-1 overflow-y-auto no-scrollbar pb-10 bg-[#F3F3F3] relative z-20 pt-8">
-            <div className="bg-white shadow-xl shadow-black/[0.02] border-y border-gray-100">
+        <div className="flex-1 overflow-y-auto no-scrollbar pb-10 -mt-6 rounded-t-[32px] bg-[#F3F3F3] relative z-20">
+            <div className="bg-white shadow-xl shadow-black/[0.02] border-y border-gray-100 mt-6">
                 <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
                     <h3 className="font-black text-gray-400 text-[11px] uppercase tracking-[0.25em]">Recent Activity</h3>
                     <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center">
@@ -112,16 +70,17 @@ const AccountDetail: React.FC<AccountDetailProps> = ({ accountName, data, onBack
                     )}
                 </div>
             </div>
+            
+            {/* Quick Link Card */}
+            <div className="px-6 mt-8">
+                <button className="w-full bg-white border border-gray-200 p-8 rounded-[32px] flex flex-col items-center gap-4 group active:bg-gray-50 transition-all shadow-sm">
+                    <div className="w-12 h-12 rounded-2xl bg-[#008A00] flex items-center justify-center text-white shadow-lg group-active:scale-90 transition-transform">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </div>
+                    <span className="font-black text-[#008A00] text-[13px] uppercase tracking-[0.2em]">Move Money</span>
+                </button>
+            </div>
         </div>
-
-        <AnimatePresence>
-            {showStatementModal && (
-                <TDStatementOptionsModal 
-                    onGenerate={handleGenerateStatement} 
-                    onClose={() => setShowStatementModal(false)} 
-                />
-            )}
-        </AnimatePresence>
     </div>
   );
 };

@@ -1,11 +1,13 @@
 
 import React from 'react';
 
-// Added isDev property to CommonFieldProps to resolve usage in AccessModesSection and Toggle components.
+// Added isDark and isDev properties to CommonFieldProps to resolve usage in various sections.
 export interface CommonFieldProps {
   isHacker?: boolean;
   isGod?: boolean;
   isDev?: boolean;
+  // Fix: Added isDark property to avoid type errors when passed from SettingsApp
+  isDark?: boolean;
 }
 
 export interface InputFieldProps {
@@ -35,7 +37,7 @@ export const InputField = ({ label, value, onChange, type = "text", placeholder 
 
 export const InfoField = ({ label, value, ...props }: { label: string, value: string } & CommonFieldProps) => (
   <div className={`p-5 rounded-[24px] border ${props.isHacker ? 'bg-black/60 border-[#00ff41]/20' : 'bg-white border-zinc-200 shadow-sm'}`}>
-    <p className={`text-[10px] font-black uppercase tracking-[0.2em] mb-2 px-1 ${props.isHacker ? 'text-[#00ff41]/40' : 'text-zinc-500'}`}>{label}</p>
+    <p className={`text-[10px] font-black uppercase tracking-[0.2em] mb-2 px-1 ${props.isHacker ? 'text-[#00ff41]/40' : 'text-zinc-400'}`}>{label}</p>
     <p className={`w-full font-bold text-[16px] tracking-tight ${props.isHacker ? 'text-[#00ff41]' : 'text-zinc-800'}`}>{value}</p>
   </div>
 );
@@ -53,7 +55,7 @@ export const Toggle = ({ label, active, onToggle, accentColor, ...props }: { lab
     >
         <span className={`font-bold text-[15px] tracking-tight ${isHacker ? 'text-[#00ff41]' : 'text-zinc-700'}`}>{label}</span>
         <div className={`w-12 h-7 rounded-full transition-all relative p-1 ${toggleBg}`}>
-            <div className={`w-5 h-5 rounded-full transition-all transform shadow-md ${active ? 'translate-x-5 bg-white' : 'translate-x-0 bg-zinc-400'} ${isHacker && active ? 'bg-black' : ''}`} />
+            <div className={`w-5 h-5 rounded-full bg-white transition-all transform shadow-md ${active ? 'translate-x-5' : 'translate-x-0'} ${isHacker && active ? 'bg-black' : ''}`} />
         </div>
     </button>
   );

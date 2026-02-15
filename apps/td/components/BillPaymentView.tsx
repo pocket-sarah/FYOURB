@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
-// Fixed: Re-added ChevronRightIcon import.
-import { BackIcon, ChevronRightIcon } from '../TDIcons';
+import { BackIcon } from '../TDIcons';
 import { ScotiaAccountMap, ScotiaAccount } from '../../scotia/types';
 import { INITIAL_PAYEES } from '../../scotia/constants';
 
@@ -75,7 +74,7 @@ const BillPaymentView: React.FC<BillPaymentViewProps> = ({ accounts, onPay, onBa
                     <p className="text-gray-400 text-xs mt-1">{selectedPayee.accountNumber}</p>
                 </div>
 
-                <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-8">
+                <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
                     <label className="block text-gray-500 text-xs font-bold uppercase mb-2">Amount</label>
                     <div className="flex items-center border-b border-gray-200 pb-2">
                         <span className="text-2xl font-bold text-gray-400 mr-2">$</span>

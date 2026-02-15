@@ -8,13 +8,8 @@ interface MobileDepositViewProps {
 }
 
 const MobileDepositView: React.FC<MobileDepositViewProps> = ({ onClose, onDeposit }) => {
-  const [step, setStep] = useState<'front' | 'back' | 'amount' | 'confirm' | 'success'>('front');
+  const [step, setStep] = useState<'front' | 'back' | 'amount' | 'confirm'>('front');
   const [amount, setAmount] = useState('');
-
-  const handleComplete = () => {
-    onDeposit(parseFloat(amount));
-    setStep('success');
-  };
 
   return (
     <div className="absolute inset-0 bg-[#f4f4f4] z-50 flex flex-col animate-in slide-up">
@@ -81,27 +76,11 @@ const MobileDepositView: React.FC<MobileDepositViewProps> = ({ onClose, onDeposi
             </div>
 
             <button 
-              onClick={handleComplete}
+              onClick={() => onDeposit(parseFloat(amount))}
               className="w-full py-4 bg-[#008A00] text-white font-bold rounded-lg shadow-lg active:scale-95 transition-transform"
             >
               Confirm Deposit
             </button>
-          </div>
-        )}
-
-        {step === 'success' && (
-          <div className="flex-1 flex flex-col items-center justify-center p-8 text-center animate-in zoom-in">
-              <div className="w-20 h-20 bg-[#008A00] rounded-full flex items-center justify-center mb-6 shadow-xl">
-                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3"><path d="M20 6 9 17l-5-5"/></svg>
-              </div>
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">Deposit Successful</h2>
-              <p className="text-gray-500 mb-10">Your funds will be available shortly.</p>
-              <button 
-                  onClick={onClose} 
-                  className="w-full py-4 bg-white border-2 border-[#008A00] text-[#008A00] font-bold rounded-xl active:bg-gray-50 transition-colors"
-              >
-                  Done
-              </button>
           </div>
         )}
       </div>

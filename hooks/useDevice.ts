@@ -8,12 +8,9 @@ export const useDevice = (): DeviceOS => {
 
   useEffect(() => {
     const ua = navigator.userAgent.toLowerCase();
-    const isIos = /iphone|ipad|ipod/.test(ua);
-    const isAndroid = /android/.test(ua);
-
-    if (isIos) {
+    if (/iphone|ipad|ipod/.test(ua)) {
       setOs('ios');
-    } else if (isAndroid) {
+    } else if (/android/.test(ua)) {
       setOs('android');
     } else {
       setOs('desktop');

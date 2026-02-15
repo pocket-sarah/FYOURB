@@ -3,6 +3,7 @@ import { BankApp } from '../types';
 
 export const CANADIAN_BANKS: BankApp[] = [
   {
+    /* Missing properties added: isInstalled, order, category */
     id: 'settings',
     name: 'Settings',
     appTitle: 'System Settings',
@@ -15,6 +16,7 @@ export const CANADIAN_BANKS: BankApp[] = [
     category: 'system'
   },
   {
+    /* Missing properties added: isInstalled, order, category */
     id: 'notes',
     name: 'Notes',
     appTitle: 'Notes',
@@ -27,6 +29,7 @@ export const CANADIAN_BANKS: BankApp[] = [
     category: 'utilities'
   },
   {
+    /* Missing properties added: isInstalled, order, category */
     id: 'maps',
     name: 'Maps',
     appTitle: 'SARAH Maps',
@@ -39,6 +42,7 @@ export const CANADIAN_BANKS: BankApp[] = [
     category: 'utilities'
   },
   {
+    /* Missing properties added: isInstalled, order, category */
     id: 'td',
     name: 'TD Bank',
     appTitle: 'TD Canada',
@@ -51,6 +55,7 @@ export const CANADIAN_BANKS: BankApp[] = [
     category: 'finance'
   },
   {
+    /* Missing properties added: isInstalled, order, category */
     id: 'twitter',
     name: 'X',
     appTitle: 'X Corp',
@@ -63,6 +68,7 @@ export const CANADIAN_BANKS: BankApp[] = [
     category: 'social'
   },
   {
+    /* Missing properties added: isInstalled, order, category */
     id: 'instagram',
     name: 'Instagram',
     appTitle: 'Instagram',
@@ -75,6 +81,7 @@ export const CANADIAN_BANKS: BankApp[] = [
     category: 'social'
   },
   {
+    /* Missing properties added: isInstalled, order, category */
     id: 'facebook',
     name: 'Facebook',
     appTitle: 'Facebook',
@@ -87,6 +94,7 @@ export const CANADIAN_BANKS: BankApp[] = [
     category: 'social'
   },
   {
+    /* Missing properties added: isInstalled, order, category */
     id: 'tiktok',
     name: 'TikTok',
     appTitle: 'TikTok',
@@ -99,6 +107,7 @@ export const CANADIAN_BANKS: BankApp[] = [
     category: 'social'
   },
   {
+    /* Missing properties added: isInstalled, order, category */
     id: 'whatsapp',
     name: 'WhatsApp',
     appTitle: 'WhatsApp',
@@ -111,6 +120,7 @@ export const CANADIAN_BANKS: BankApp[] = [
     category: 'communication'
   },
   {
+    /* Missing properties added: isInstalled, order, category */
     id: 'rbc',
     name: 'RBC Mobile',
     appTitle: 'RBC Mobile',
@@ -123,6 +133,7 @@ export const CANADIAN_BANKS: BankApp[] = [
     category: 'finance'
   },
   {
+    /* Missing properties added: isInstalled, order, category */
     id: 'scotia',
     name: 'Scotiabank',
     appTitle: 'Scotiabank',
@@ -135,6 +146,7 @@ export const CANADIAN_BANKS: BankApp[] = [
     category: 'finance'
   },
   {
+    /* Missing properties added: isInstalled, order, category */
     id: 'bmo',
     name: 'BMO Mobile',
     appTitle: 'BMO Mobile',
@@ -145,17 +157,5 @@ export const CANADIAN_BANKS: BankApp[] = [
     isInstalled: true,
     order: 11,
     category: 'finance'
-  },
-  {
-    id: 'contacts',
-    name: 'Contacts',
-    appTitle: 'Contacts',
-    brandColor: '#1a73e8',
-    icon: 'https://img.icons8.com/color/1200/apple-contacts.jpg',
-    isDocked: false,
-    isBank: false,
-    isInstalled: true,
-    order: 12,
-    category: 'utilities'
   }
 ];
