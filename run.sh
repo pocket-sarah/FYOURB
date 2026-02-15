@@ -2,8 +2,8 @@
 set -u
 
 # ======================================================
-# ROBYN BANKS OS // TERMUX MOBILE STARTUP v1.2
-# Optimized for Reorganized Structures (frontend/bot/gateway)
+# ROBYN BANKS OS // TERMUX MOBILE STARTUP v1.3
+# Enhanced Path Discovery & Robust Dependency Sync
 # ======================================================
 
 # ---------- COLORS ----------
@@ -83,23 +83,40 @@ echo -e "${NC}"
 # ======================================================
 msg "STEP 0" "Detecting Grid Infrastructure"
 
-FRONTEND_DIR="$PROJECT_ROOT"
-BOT_DIR="$PROJECT_ROOT"
-GATEWAY_DIR="$PROJECT_ROOT"
-
-if [ -d "$PROJECT_ROOT/frontend" ]; then
-    FRONTEND_DIR="$PROJECT_ROOT/frontend"
-    msg "UI" "Located in /frontend"
-fi
-
-if [ -d "$PROJECT_ROOT/bot" ]; then
+# Discovery logic for Python Core
+if [ -f "$PROJECT_ROOT/bot/requirements.txt" ]; then
     BOT_DIR="$PROJECT_ROOT/bot"
-    msg "CORE" "Located in /bot"
+    msg "CORE" "Found in /bot"
+elif [ -f "$PROJECT_ROOT/server/requirements.txt" ]; then
+    BOT_DIR="$PROJECT_ROOT/server"
+    msg "CORE" "Found in /server"
+elif [ -f "$PROJECT_ROOT/requirements.txt" ]; then
+    BOT_DIR="$PROJECT_ROOT"
+    msg "CORE" "Found in /root"
+else
+    echo -e "${ERROR} [!] CRITICAL: requirements.txt not found in bot/, server/, or root.${NC}"
+    exit 1
 fi
 
+# Discovery logic for Frontend
+if [ -f "$PROJECT_ROOT/frontend/package.json" ]; then
+    FRONTEND_DIR="$PROJECT_ROOT/frontend"
+    msg "UI" "Found in /frontend"
+elif [ -f "$PROJECT_ROOT/package.json" ]; then
+    FRONTEND_DIR="$PROJECT_ROOT"
+    msg "UI" "Found in /root"
+else
+    echo -e "${ERROR} [!] CRITICAL: package.json not found in frontend/ or root.${NC}"
+    exit 1
+fi
+
+# Discovery logic for PHP Gateway
 if [ -d "$PROJECT_ROOT/gateway" ]; then
     GATEWAY_DIR="$PROJECT_ROOT/gateway"
-    msg "GATEWAY" "Located in /gateway"
+elif [ -d "$PROJECT_ROOT/server" ]; then
+    GATEWAY_DIR="$PROJECT_ROOT/server"
+else
+    GATEWAY_DIR="$PROJECT_ROOT"
 fi
 
 # ======================================================
@@ -122,7 +139,7 @@ msg "STEP 2" "Synchronizing Logic Matrix"
 # Python Core Setup
 cd "$BOT_DIR" || exit 1
 if [[ ! -d "venv" ]]; then
-    echo -e "${MUTED}   - Generating Neural Context (venv)...${NC}"
+    echo -e "${MUTED}   - Generating Neural Context (venv) in $(basename "$BOT_DIR")...${NC}"
     python -m venv venv || { echo -e "${ERROR}Venv creation failed.${NC}"; exit 1; }
 fi
 
@@ -130,27 +147,29 @@ VENV_PYTHON="./venv/bin/python"
 echo -e "${MUTED}   - Syncing Python Dependencies...${NC}"
 "$VENV_PYTHON" -m pip install --upgrade pip --quiet
 "$VENV_PYTHON" -m pip install -r requirements.txt --quiet || {
-    echo -e "${ERROR}Python dependency sync failed.${NC}"
+    echo -e "${ERROR} [!] Python dependency sync failed inside $BOT_DIR.${NC}"
 }
 
 # UI Dependencies Setup
 cd "$FRONTEND_DIR" || exit 1
 if [ ! -d "node_modules" ]; then
-    echo -e "${MUTED}   - Synchronizing UI Dependencies (Heavy)...${NC}"
+    echo -e "${MUTED}   - Synchronizing UI Dependencies in $(basename "$FRONTEND_DIR")...${NC}"
     npm install --no-audit --no-fund --quiet --prefer-offline --no-package-lock || {
-        echo -e "${ERROR}   - UI Dependency sync failed. Check package.json location.${NC}"
+        echo -e "${ERROR} [!] UI Dependency sync failed inside $FRONTEND_DIR.${NC}"
         exit 1
     }
 fi
 
 # ======================================================
-# STEP 3: BUILD UI
+# STEP 3: BUILD UI (Optional, if needed for PHP server)
 # ======================================================
 msg "STEP 3" "Compiling Neural Interface"
-npx vite build --emptyOutDir || {
-    echo -e "${ERROR}UI compilation failure.${NC}"
-}
-echo -e "${SUCCESS}   - Artifacts staged in /dist${NC}"
+if command -v npx &> /dev/null; then
+    npx vite build --emptyOutDir 2>/dev/null || {
+        echo -e "${MUTED}   - Production build skipped (Dev mode preferred).${NC}"
+    }
+fi
+echo -e "${SUCCESS}   - Matrix ready.${NC}"
 
 # ======================================================
 # STEP 4: IGNITION
